@@ -13,17 +13,13 @@ export class AuthenticationService {
   private _uid: string;
   public _data: string;
   public _url: string;
-  public _obs: any;
 
   constructor( private router: Router, private _http: Http ) { }
 
   public dologin(username: String, password: String)  {
     const body: string = '{"email":"' + username + '","password": "' + password + '"}';
     this._isLoginOK = false;
-/*   const obs = new Observable ((observer) => {
-      this._obs = observer;
-   });
-*/
+
     const h: Headers = new Headers();
     h.append('content-type', 'application/json');
     const reqopt = new RequestOptions ( {headers: h} );
@@ -36,7 +32,7 @@ export class AuthenticationService {
       }
     );
 
-  //    return obs;
+
   }
 
 
@@ -78,43 +74,4 @@ export class AuthenticationService {
   isAuthenticated(): boolean {
     return this._isLoginOK;
   }
-/*
-  logout() {
-    this.removeToken();
-    // this.router.navigate(['login']);
-  }
-
-  getToken() {
-    return JSON.parse(localStorage.getItem(this.tokenKey));
-  }
-
-  setToken(token) {
-    localStorage.setItem(this.tokenKey, JSON.stringify(token));
-  }
-
-  getAccessToken() {
-    return JSON.parse(localStorage.getItem(this.tokenKey))['access_token'];
-  }
-
-  isAuthenticated() {
-
-    const token = localStorage.getItem(this.tokenKey);
-
-    if (token) {
-      return true;
-    } else {
-      return false;
-    }
-
-  }
-
-  refreshToken() {
-    this.token.exp = new Date((new Date().getDate() + 1));
-    this.setToken(this.token);
-  }
-
-  removeToken() {
-    localStorage.removeItem(this.tokenKey);
-  }
-*/
 }
