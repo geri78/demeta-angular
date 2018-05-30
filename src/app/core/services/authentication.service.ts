@@ -1,3 +1,4 @@
+import { Web3WrapperService } from './web3wrapper.service';
 import { Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
@@ -14,7 +15,7 @@ export class AuthenticationService {
   public _data: string;
   public _url: string;
 
-  constructor( private router: Router, private _http: Http ) { }
+  constructor( private router: Router, private _http: Http, private _web3: Web3WrapperService ) { }
 
   public dologin(username: String, password: String)  {
     const body: string = '{"email":"' + username + '","password": "' + password + '"}';

@@ -8,6 +8,7 @@ import { NotFoundComponent } from './not-found/not-found.component';
 import { RouterModule } from '@angular/router';
 import { AuthenticationService } from './services/authentication.service';
 import { AuthGuardService } from './services/auth-guard.service';
+import { Web3WrapperService } from './services/web3wrapper.service';
 
 
 @NgModule({
@@ -22,7 +23,8 @@ import { AuthGuardService } from './services/auth-guard.service';
   ],
   providers: [
     AuthenticationService,
-    AuthGuardService
+    AuthGuardService,
+    Web3WrapperService
   ]
 })
 export class CoreModule { }
