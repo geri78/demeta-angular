@@ -14,21 +14,21 @@ declare var window: any;
 
 @Injectable()
 export class Web3WrapperService {
-  name = 'Initial name from component';
-  NewName: string;
   // AxEuroToken = contract(AxEuroTokenArtifact);
 // get only interface object from contract
 
   private AxEuroTokenInterface = (<any>AxEuroTokenArtifact).abi;
   private AxEuroTokenApprovalEvt;
 // address where contract is deployed.
-
   private AxEuroTokenDeployedAt = '0xbFEa297CAD970b59364b5A0f9d78bfA42D705756';
   private AxEuroToken = null;
   account: any;
   accounts: any;
   web3: any;
   status: string;
+  _bnval = 1000000000000000000;
+
+
   constructor(private _ngZone: NgZone) {
 
   }
@@ -46,12 +46,15 @@ public initAxAgroTokenContract(): void {
       const ret = this.AxEuroToken.totalSupply();
       console.log('got totalSupply:' + ret);
       this.AxEuroTokenApprovalEvt = this.AxEuroToken.Approval();
-
+      // event Approval(address indexed tokenOwner, address indexed spender, uint tokens);
       this.AxEuroTokenApprovalEvt.watch ( (err, response) => {  // set up listener for the AuctionClosed Event
         if  (!err) {
-          console.log('owner:' + response.args.owner.toString().toUpperCase() + 'value:' + response.args.value);
+          const receipient = response.args.spender;
+          let value = response.args.tokens;
+          value /= this._bnval;
+          console.log('receiver:' + receipient + ' value:' + value);
         }
-        alert('event received');
+        // alert('event received');
         });
       // setTimeout ( () => {  //simulate an auction for 3 seconds, after which the creator closes the auction
       /*
@@ -64,8 +67,9 @@ public initAxAgroTokenContract(): void {
         }
       });*/
     }
-/*
-public AxEuroToken_approve( receipient: string, price: number, sender_password: string): void {
+
+public AxEuroToken_approve( receipient: string, price: number, sender: string, sender_password: string): void {
+  /*
   var bnval = new BigNumber(price);
   var bn18 = new BigNumber('1000000000000000000');
 
@@ -74,16 +78,24 @@ public AxEuroToken_approve( receipient: string, price: number, sender_password: 
   BuyStruct.asset =  val;
   BuyStruct.preis = bnv;
   var pw = $('#ka_pw').val();
-  App.web3.personal.unlockAccount(kaufer, pw);
+  */
 
+
+    price *= this._bnval;
+
+  // App.web3.personal.unlockAccount(kaufer, pw);
+  if (sender_password != null) {
+      this.web3.personal.unlockAccount(sender, sender_password);
+  }
+  /*
   var assetContract = "0x95977E9685BEbccCb889E32359ED0fe31B60bBeb";
   App.contracts.Token.approve(assetContract , bnv.toString(), {from: kaufer},
   function(error, ret){ console.log(error)});
-
-
-  this.AxEuroToken.approve()
-}
 */
+  this.AxEuroToken.approve(receipient, price.toString(), {from: sender});
+
+}
+
 
   checkAndInstantiateWeb3 = () => {
     // Checking if Web3 has been injected by the browser (Mist/MetaMask)
@@ -135,49 +147,5 @@ public AxEuroToken_approve( receipient: string, price: number, sender_password: 
     });
   }
 
-/*
-  refreshName = () => {
-    let nc;
-    this.nameChange
-      .deployed()
-      .then(instance => {
-        nc = instance;
-        return nc.showName.call({
-          from: this.account
-        });
-      })
-      .then(value => {
-        this.name = value;
-      })
-      .catch(e => {
-        console.log(e);
-        this.setStatus('Error getting name; see log.');
-      });
-  };
 
-  changeName = () => {
-    const nawname = this.NewName;
-    let nc;
-
-    this.setStatus('Initiating transaction... (please wait)');
-
-    this.nameChange
-      .deployed()
-      .then(instance => {
-        nc = instance;
-        return nc.changename(nawname,{from: this.account})
-      })
-      .then(() => {
-        this.setStatus('Transaction complete!');
-        this.refreshName();
-      })
-      .catch(e => {
-        console.log(e);
-        this.setStatus('Error changing name; see log.');
-      });
-  };
-  setStatus = message => {
-    this.status = message;
-  };
-  */
 }
