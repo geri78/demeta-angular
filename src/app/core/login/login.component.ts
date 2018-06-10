@@ -15,6 +15,8 @@ export class LoginComponent implements OnInit {
   ngOnInit() {
     this._web3wrap.checkAndInstantiateWeb3();
     this._web3wrap.onReady();
+    this._web3wrap.initAxAgroTokenContract();
+
     }
 /*
   @HostListener('window:load')

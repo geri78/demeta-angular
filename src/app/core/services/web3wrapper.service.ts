@@ -4,7 +4,9 @@ import { Router } from '@angular/router';
 
 const Web3 = require('web3');
 // const contract = require('truffle-contract');
-// const nameChangeArtifacts = require('../../build/contracts/NameChange.json');
+const AxEuroTokenArtifact = require('./../../../../build/contracts/AxEuroToken.json');
+// import AxEuroTokenArtefact from './../../../../build/contracts/AxEuroToken.json';
+
 
 declare var window: any;
 
@@ -14,8 +16,15 @@ declare var window: any;
 export class Web3WrapperService {
   name = 'Initial name from component';
   NewName: string;
-  // nameChange = contract(nameChangeArtifacts);
+  // AxEuroToken = contract(AxEuroTokenArtifact);
+// get only interface object from contract
 
+  private AxEuroTokenInterface = (<any>AxEuroTokenArtifact).abi;
+  private AxEuroTokenApprovalEvt;
+// address where contract is deployed.
+
+  private AxEuroTokenDeployedAt = '0xbFEa297CAD970b59364b5A0f9d78bfA42D705756';
+  private AxEuroToken = null;
   account: any;
   accounts: any;
   web3: any;
@@ -23,11 +32,58 @@ export class Web3WrapperService {
   constructor(private _ngZone: NgZone) {
 
   }
+  /*
   @HostListener('window:load')
   windowLoaded() {
     this.checkAndInstantiateWeb3();
     this.onReady();
   }
+*/
+
+public initAxAgroTokenContract(): void {
+  this.AxEuroToken = this.web3.eth.contract(this.AxEuroTokenInterface)
+                                         .at(this.AxEuroTokenDeployedAt);
+      const ret = this.AxEuroToken.totalSupply();
+      console.log('got totalSupply:' + ret);
+      this.AxEuroTokenApprovalEvt = this.AxEuroToken.Approval();
+
+      this.AxEuroTokenApprovalEvt.watch ( (err, response) => {  // set up listener for the AuctionClosed Event
+        if  (!err) {
+          console.log('owner:' + response.args.owner.toString().toUpperCase() + 'value:' + response.args.value);
+        }
+        alert('event received');
+        });
+      // setTimeout ( () => {  //simulate an auction for 3 seconds, after which the creator closes the auction
+      /*
+      this.AxEuroTokenApprovalEvt.watch(function(error, result){
+      if (!error) { // event Approval(address indexed owner, address indexed spender, uint value);
+            console.log('owner:' + result.args.owner.toString().toUpperCase() + 'value:' + result.args.value);
+            alert('event received');
+        } else {
+            console.log(error);
+        }
+      });*/
+    }
+/*
+public AxEuroToken_approve( receipient: string, price: number, sender_password: string): void {
+  var bnval = new BigNumber(price);
+  var bn18 = new BigNumber('1000000000000000000');
+
+  var bnv =  bnval.multipliedBy(bn18);
+  BuyStruct.kaufer = kaufer;
+  BuyStruct.asset =  val;
+  BuyStruct.preis = bnv;
+  var pw = $('#ka_pw').val();
+  App.web3.personal.unlockAccount(kaufer, pw);
+
+  var assetContract = "0x95977E9685BEbccCb889E32359ED0fe31B60bBeb";
+  App.contracts.Token.approve(assetContract , bnv.toString(), {from: kaufer},
+  function(error, ret){ console.log(error)});
+
+
+  this.AxEuroToken.approve()
+}
+*/
 
   checkAndInstantiateWeb3 = () => {
     // Checking if Web3 has been injected by the browser (Mist/MetaMask)
@@ -71,9 +127,6 @@ export class Web3WrapperService {
         return;
       }
       console.log(accs);
-      this.accounts = accs;
-      this.account = this.accounts[0];
-
       // This is run from window:load and ZoneJS is not aware of it we
       // need to use _ngZone.run() so that the UI updates on promise resolution
    //   this._ngZone.run(() =>
@@ -81,6 +134,7 @@ export class Web3WrapperService {
    //   );
     });
   }
+
 /*
   refreshName = () => {
     let nc;
