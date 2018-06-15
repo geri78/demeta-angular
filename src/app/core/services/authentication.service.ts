@@ -64,7 +64,7 @@ export class AuthenticationService {
 
 
   login(username, password) {
-    this._url = 'https://axgro-demo-server-staging.herokuapp.com/api';
+    this._url = 'http://demeta-rails-staging.herokuapp.com';//this._url = 'https://axgro-demo-server-staging.herokuapp.com/api';
     this.dologin(username, password);
   }
 
