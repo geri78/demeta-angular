@@ -2,7 +2,7 @@ import { Web3WrapperService } from './web3wrapper.service';
 import { Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { Http, Headers, RequestOptions, RequestMethod } from '@angular/http';
+import { Http, Headers, RequestOptions, RequestMethod, ResponseContentType } from '@angular/http';
 
 
 @Injectable()
@@ -18,12 +18,17 @@ export class AuthenticationService {
   constructor( private router: Router, private _http: Http, private _web3: Web3WrapperService ) { }
 
   public dologin(username: String, password: String)  {
-    const body: string = '{"email":"' + username + '","password": "' + password + '"}';
+    const body: string = 'email=' + username + '&password=' + password;
     this._isLoginOK = false;
 
+    /*const h: Headers = new Headers();
+    //h.append('content-type', 'application/json');
+    //const reqopt = new RequestOptions ( {headers: h} );*/
     const h: Headers = new Headers();
-    h.append('content-type', 'application/json');
-    const reqopt = new RequestOptions ( {headers: h} );
+    h.append('content-type', 'application/x-www-form-urlencoded; charset=utf-8');
+    h.append('Accept', 'application/json');
+    const rct: ResponseContentType = ResponseContentType.Json;
+    const reqopt = new RequestOptions ( {headers: h , responseType: rct} );
        this._http.post(this._url + '/auth/sign_in', body, reqopt)
     .subscribe(result => {
       this.processResponse(result.headers, result.ok, result.text());
@@ -64,7 +69,7 @@ export class AuthenticationService {
 
 
   login(username, password) {
-    this._url = 'http://demeta-rails-staging.herokuapp.com'; /*this._url = 'https://axgro-demo-server-staging.herokuapp.com/api';*/
+    this._url = 'https://demeta-rails-staging.herokuapp.com'; /*this._url = 'https://axgro-demo-server-staging.herokuapp.com/api';*/
     this.dologin(username, password);
   }
 
