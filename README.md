@@ -42,3 +42,7 @@ For a more detailed explanation on the architectural decisions made in this desi
 - Shared directive example
 
 # Upgraded to Angular 6
+
+# Components needed to install
+npm install --save @angular/material    --> material stuff install
+npm install --save @angular/cdk
