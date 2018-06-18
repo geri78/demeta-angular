@@ -16,8 +16,8 @@ export class LoginComponent implements OnInit {
     this._web3wrap.checkAndInstantiateWeb3();
     this._web3wrap.onReady();
     this._web3wrap.initAxAgroTokenContract();
-    this._web3wrap.AxEuroToken_approve( '0x0051D40C97ca3e7581752689ae2F36Fdbb2365bC', 1,
-                                        '0x003A9B54a8Baf82F493c9980C031Ec70CcB2D67a', null);
+   /* this._web3wrap.AxEuroToken_approve( '0x0051D40C97ca3e7581752689ae2F36Fdbb2365bC', 1,
+                                        '0x003A9B54a8Baf82F493c9980C031Ec70CcB2D67a', null);*/
 
     }
 /*
