@@ -2,39 +2,54 @@ import { Web3WrapperService } from './web3wrapper.service';
 import { Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { Http, Headers, RequestOptions, RequestMethod, ResponseContentType } from '@angular/http';
-
+// import { Http, Headers, RequestOptions, RequestMethod, ResponseContentType } from '@angular/http';
+import { HttpClient, HttpEvent, HttpInterceptor, HttpHandler, HttpRequest, HttpHeaders} from '@angular/common/http';
+import { LoginComponent } from '../login/login.component';
 
 @Injectable()
 export class AuthenticationService {
+  private static s_client: string;
+  private static s_token: string;
+  private static s_uid: string;
+  public static s_url: string;
 
   public _isLoginOK = false;
-  private _client: string;
-  private _token: string;
-  private _uid: string;
-  public _data: string;
-  public _url: string;
 
-  constructor( private router: Router, private _http: Http, private _web3: Web3WrapperService ) { }
+  public static prepareHeader(h: HttpHeaders): HttpHeaders {
+    if ( AuthenticationService.s_uid != null) {
+      h.set('uid', AuthenticationService.s_uid);
+      h.set('client', AuthenticationService.s_client);
+      h.set('access-token', AuthenticationService.s_token);
+    }
+    return h;
+  }
 
-  public dologin(username: String, password: String)  {
-    const body: string = 'email=' + username + '&password=' + password;
+  constructor( private router: Router, private _http: HttpClient, private _web3: Web3WrapperService ) { }
+
+  public dologin(login: LoginComponent, username: string, password: string)  {
+     const body: string = 'email=' + username + '&password=' + password;
     this._isLoginOK = false;
 
-    /*const h: Headers = new Headers();
-    //h.append('content-type', 'application/json');
-    //const reqopt = new RequestOptions ( {headers: h} );*/
-    const h: Headers = new Headers();
-    h.append('content-type', 'application/x-www-form-urlencoded; charset=utf-8');
-    h.append('Accept', 'application/json');
-    const rct: ResponseContentType = ResponseContentType.Json;
-    const reqopt = new RequestOptions ( {headers: h , responseType: rct} );
-       this._http.post(this._url + '/auth/sign_in', body, reqopt)
+    const h: HttpHeaders = new HttpHeaders()
+                         .set('Accept', 'application/json')
+                         .set('content-type', 'application/x-www-form-urlencoded');
+    /* const h: Headers = new Headers();
+    // h.append('content-type', 'application/json');
+    // const reqopt = new RequestOptions ( {headers: h} );*/
+    // const h: Headers = new Headers();
+    // h.append('content-type', 'application/x-www-form-urlencoded; charset=utf-8');
+    // h.append('Accept', 'application/json');
+    // const rct: ResponseContentType = ResponseContentType.Json;
+    // const reqopt = new RequestOptions ( {headers: h , responseType: rct} );
+
+    this._http.post(AuthenticationService.s_url + '/auth/sign_in', body , {headers: h, observe: 'response'} )
     .subscribe(result => {
-      this.processResponse(result.headers, result.ok, result.text());
+        console.log(result);
+       this.processResponse(login, result.headers, result.ok, result.body);
       },
       error => {
-        this.processResponse(error.headers, false, error.text());
+        console.log('error:' + error);
+        this.processResponse(null, error.headers, false, error.text());
       }
     );
 
@@ -42,35 +57,29 @@ export class AuthenticationService {
   }
 
 
-  processResponse(headers: Headers, ret: boolean, text: string): void {
+  processResponse(login: LoginComponent, headers: HttpHeaders, ret: boolean, obj: Object): void {
 
     if (ret) {
-      this._uid = headers.get('uid');
-      this._client = headers.get('client');
-      this._token = headers.get('access-token');
-      this._data = text;
+      AuthenticationService.s_uid = headers.get('uid');
+      AuthenticationService.s_client = headers.get('client');
+      AuthenticationService.s_token = headers.get('access-token');
+      // this._data = obj.toString();
       this._isLoginOK = true;
-      // this._obs.next(2);
+      login.setActUser(obj);
       this.router.navigate(['admin', 'dashboard']);
     } else {
       this.router.navigate(['login']);
     }
   }
 
-  public prepareOptions(): RequestOptions {
-    const h: Headers = new Headers();
-    h.append('uid', this._uid);
-    h.append('client', this._client);
-    h.append('access-token', this._token);
-
-    return new RequestOptions({headers: h});
-  }
 
 
 
-  login(username, password) {
-    this._url = 'https://demeta-rails-staging.herokuapp.com'; /*this._url = 'https://axgro-demo-server-staging.herokuapp.com/api';*/
-    this.dologin(username, password);
+
+  login(login: LoginComponent, username: string, password: string) {
+    AuthenticationService.s_url = 'https://demeta-rails-staging.herokuapp.com';
+    /*this._url = 'https://axgro-demo-server-staging.herokuapp.com/api';*/
+    this.dologin(login, username, password);
   }
 
   logout() {

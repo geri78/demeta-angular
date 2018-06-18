@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { CoreRoutingModule } from './core-routing.module';
 import { LoginComponent } from './login/login.component';
 import { HeaderComponent } from './header/header.component';
@@ -9,6 +10,7 @@ import { RouterModule } from '@angular/router';
 import { AuthenticationService } from './services/authentication.service';
 import { AuthGuardService } from './services/auth-guard.service';
 import { Web3WrapperService } from './services/web3wrapper.service';
+import { AuthInterceptor } from './services/authInterceptor';
 
 
 @NgModule({
@@ -24,7 +26,11 @@ import { Web3WrapperService } from './services/web3wrapper.service';
   providers: [
     AuthenticationService,
     AuthGuardService,
-    Web3WrapperService
+    Web3WrapperService,
+    { provide: HTTP_INTERCEPTORS,
+    useClass: AuthInterceptor,
+    multi: true
+    }
   ]
 })
 export class CoreModule { }
