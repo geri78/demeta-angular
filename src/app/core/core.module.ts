@@ -10,7 +10,7 @@ import { RouterModule } from '@angular/router';
 import { AuthenticationService } from './services/authentication.service';
 import { AuthGuardService } from './services/auth-guard.service';
 import { Web3WrapperService } from './services/web3wrapper.service';
-import { AuthInterceptor } from './services/authInterceptor';
+import { ApiInterceptorService } from './services/api-interceptor.service';
 
 
 @NgModule({
@@ -28,7 +28,7 @@ import { AuthInterceptor } from './services/authInterceptor';
     AuthGuardService,
     Web3WrapperService,
     { provide: HTTP_INTERCEPTORS,
-    useClass: AuthInterceptor,
+    useClass: ApiInterceptorService,
     multi: true
     }
   ]
