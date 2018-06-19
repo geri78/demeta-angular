@@ -49,4 +49,5 @@ npm install --save @angular/cdk
 
 # Added Objects:
 - User
+- Company
  
