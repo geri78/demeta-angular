@@ -48,7 +48,7 @@ npm install --save @angular/material    --> material stuff install
 npm install --save @angular/cdk
 
 # Added Objects:
-in dataObjects:
+in dataObjects: 
 - User
 - Company
 
