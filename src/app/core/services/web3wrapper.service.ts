@@ -40,6 +40,10 @@ export class Web3WrapperService {
   }
 */
 
+public initContracts() {
+  this.initAxAgroTokenContract();
+  // TODO: add contracts
+}
 public initAxAgroTokenContract(): void {
   this.AxEuroToken = this.web3.eth.contract(this.AxEuroTokenInterface)
                                          .at(this.AxEuroTokenDeployedAt);
@@ -54,7 +58,7 @@ public initAxAgroTokenContract(): void {
           value /= this._bnval;
           console.log('receiver:' + receipient + ' value:' + value);
         }
-        // alert('event received');
+        alert('event received');
         });
       // setTimeout ( () => {  //simulate an auction for 3 seconds, after which the creator closes the auction
       /*

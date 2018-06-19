@@ -1,3 +1,4 @@
+import { ActualDSService } from './actualDS.service';
 import { Web3WrapperService } from './web3wrapper.service';
 import { Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
@@ -5,7 +6,7 @@ import { Router } from '@angular/router';
 // import { Http, Headers, RequestOptions, RequestMethod, ResponseContentType } from '@angular/http';
 import { HttpClient, HttpEvent, HttpInterceptor, HttpHandler, HttpRequest, HttpHeaders} from '@angular/common/http';
 import { LoginComponent } from '../login/login.component';
-import { User } from '../login/user';
+import { User } from '../dataObjects/user';
 
 @Injectable()
 export class AuthenticationService {
@@ -75,7 +76,7 @@ private  processResponse(login: LoginComponent, headers: HttpHeaders, ret: boole
       AuthenticationService.s_token = headers.get('access-token');
       // this._data = obj.toString();
       this._isLoginOK = true;
-      login.setActUser(obj);
+      ActualDSService.getInstance().setUser(User.assign(obj));
       this.router.navigate(['admin', 'dashboard']);
     } else {
       alert('login failed!');
@@ -89,14 +90,6 @@ public  login(login: LoginComponent, username: string, password: string) {
     this.dologin(login, username, password);
   }
 
-    /* TESTING: check get user ....
-    this._http.get<User>(AuthenticationService.s_url + '/users/'+ data.id).subscribe(data => {
-      console.log('User ID: ' + data.id);
-      console.log('name: ' + data.name);
-      console.log('email: ' + data.email);
-    });
-    */
-
 public logout() {
    const body: string = 'uid=' +  encodeURIComponent(AuthenticationService.s_uid) +
                         '&access-token=' + encodeURIComponent(AuthenticationService.s_token) +
@@ -106,6 +99,9 @@ public logout() {
    const h: HttpHeaders = new HttpHeaders()
                         .set('Accept', 'application/json')
                         .set('content-type', 'application/x-www-form-urlencoded');
+
+    const u: User = ActualDSService.getInstance().getUser();
+    console.log('actual user:' + u.toString());
 
     this._http.delete(AuthenticationService.s_url + '/auth/sign_out/?' + body,  { observe: 'response'} )
    .subscribe(result => {
