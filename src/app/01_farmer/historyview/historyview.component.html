@@ -1,0 +1,25 @@
+<p>
+  Welcome to the history view!
+</p>
+
+<mat-table class="delivery-table mat-elevation-z8" [dataSource]="dataSource">
+  <ng-container matColumnDef="seqNo">
+      <div *matHeaderCellDef>#</div>
+      <div *matCellDef="let delivery">{{delivery.seqNo}}</div>
+  </ng-container>
+  <ng-container matColumnDef="description">
+      <div *matHeaderCellDef>Description</div>
+      <div class="description-cell"
+                *matCellDef="let delivery">{{delivery.description}}</div>
+  </ng-container>
+  <ng-container matColumnDef="duration">
+      <div *matHeaderCellDef>Duration</div>
+      <div class="duration-cell" *matCellDef="let delivery">{{delivery.duration}}</div>
+  </ng-container>
+  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+  <mat-row *matRowDef="let row; columns: displayedColumns"
+                              (click)="onRowClicked(row)" ></mat-row>
+</mat-table>
+
+
+

@@ -1,3 +1,4 @@
+import { DeliveryService } from './services/deliveryService';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
@@ -26,6 +27,7 @@ import { ApiInterceptorService } from './services/api-interceptor.service';
   providers: [
     AuthenticationService,
     AuthGuardService,
+    DeliveryService,
     Web3WrapperService,
     { provide: HTTP_INTERCEPTORS,
     useClass: ApiInterceptorService,

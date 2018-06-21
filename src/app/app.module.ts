@@ -2,7 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpModule } from '@angular/http';
 import { HttpClientModule } from '@angular/common/http';
-
+import { MaterialModule } from './material/material.module';
 
 
 import { AppComponent } from './app.component';
@@ -16,7 +16,8 @@ import { CoreModule } from './core/core.module';
     BrowserModule,
     CoreModule,
     HttpModule,
-    HttpClientModule
+    HttpClientModule,
+    MaterialModule
   ],
   providers: [],
   bootstrap: [AppComponent]
