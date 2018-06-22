@@ -28,15 +28,17 @@
 	</div>
 </div>
 -->
-<div class="form-structor" align="center">
-	<div class="login">
-      <div class="center">
-        <h2 class="form-title" id="login">Log in</h2>
-        <div class="form-holder">
-          <input type="userName" class="input" placeholder="userName" #userName formControlName="userName" (keyup.enter)="login(userName.value, password.value)"/>
-          <input type="password" class="input" placeholder="password" #password required autofocus (keyup.enter)="login(userName.value, password.value)"/>
+<div class="middle" align="center">
+  <div class="form-structor" >
+    <div class="login">
+        <div class="center">
+          <h2 class="form-title" id="login">Log in</h2>
+          <div class="form-holder">
+            <input type="userName" class="input" placeholder="userName" value="hannes@stiebitzhofer.com" #userName required autofocus formControlName="userName" (keyup.enter)="login(userName.value, password.value)"/>
+            <input type="password" class="input" placeholder="password" #password required (keyup.enter)="login(userName.value, password.value)"/>
+          </div>
+          <button class="submit-btn" (click)="login(userName.value, password.value)">Log in</button>
         </div>
-        <button class="submit-btn" (click)="login(userName.value, password.value)">Log in</button>
-      </div>
-	</div>
+    </div>
+  </div>
 </div>
