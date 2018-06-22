@@ -1,4 +1,4 @@
-<form class="form-signin">
+<!--<form class="form-signin">
   <h2>Login</h2>
   <label for="username" class="sr-only">Username</label>
   <input type="text" required autofocus id="username" #username placeholder="Username/Email" />
@@ -24,6 +24,19 @@
           <input type="password" class="input" placeholder="Password" (keyup.enter)="login(username.value, password.value)"/>
         </div>
         <button class="submit-btn" (click)="toggle($event)">Log in</button>
+      </div>
+	</div>
+</div>
+-->
+<div class="form-structor" align="center">
+	<div class="login">
+      <div class="center">
+        <h2 class="form-title" id="login">Log in</h2>
+        <div class="form-holder">
+          <input type="userName" class="input" placeholder="userName" #userName formControlName="userName" (keyup.enter)="login(userName.value, password.value)"/>
+          <input type="password" class="input" placeholder="password" #password required autofocus (keyup.enter)="login(userName.value, password.value)"/>
+        </div>
+        <button class="submit-btn" (click)="login(userName.value, password.value)">Log in</button>
       </div>
 	</div>
 </div>

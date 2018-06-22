@@ -28,11 +28,6 @@ const routes: Routes = [
     loadChildren: '../01_farmer/farmer.module#FarmerModule'
   },
   {
-    path: 'warehousekeeper',
-    loadChildren: '../01_Warehousekeeper/warehousekeeper.module#WarehousekeeperModule'
-  },
-
-  {
     path: '**',
     component: NotFoundComponent
   }

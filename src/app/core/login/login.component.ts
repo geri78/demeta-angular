@@ -83,7 +83,7 @@ export class LoginComponent implements OnInit {
 */
 
   login(username, password) {
-    this.toggle();
+    //this.toggle();
     this.authentication.login(this, username, password);
   }
 
