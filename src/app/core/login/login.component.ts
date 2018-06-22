@@ -20,7 +20,7 @@ import { ActualDSService } from '../services/actualDS.service';
 
 export class LoginComponent implements OnInit {
   form: FormGroup;
-  public show = false;
+  public showLogin = false;
   public buttonName = 'Show';
   private formSubmitAttempt: boolean;
   _actUser: User;
@@ -44,15 +44,15 @@ export class LoginComponent implements OnInit {
   }
 
   get stateName() {
-    return this.show ? 'show' : 'hide';
+    return this.showLogin ? 'show' : 'hide';
   }
 
 
-  toggle() {
-    this.show = !this.show;
+  public toggle() {
+    this.showLogin = !this.showLogin;
 
     // CHANGE THE NAME OF THE BUTTON.
-    if (this.show) {
+    if (this.showLogin) {
       this.buttonName = 'Hide';
     } else {
       this.buttonName = 'Show';
@@ -83,6 +83,7 @@ export class LoginComponent implements OnInit {
 */
 
   login(username, password) {
+    this.toggle();
     this.authentication.login(this, username, password);
   }
 
