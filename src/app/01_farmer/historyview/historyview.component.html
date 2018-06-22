@@ -1,5 +1,5 @@
 <p>
-  Welcome to the history view!
+  Overview Delivery
 </p>
 
 
@@ -28,7 +28,7 @@
     matSort matSortActive="seqNo" matSortDirection="asc" matSortDisableClear>
   <ng-container matColumnDef="seqNo">
       <mat-header-cell *matHeaderCellDef>#</mat-header-cell>
-      <mat-cell *matCellDef="let delivery">{{delivery.seqNo}}</mat-cell>
+      <mat-cell mat-sort-header *matCellDef="let delivery">{{delivery.seqNo}}</mat-cell>
   </ng-container>
   <ng-container matColumnDef="description">
       <mat-header-cell *matHeaderCellDef>Description</mat-header-cell>
