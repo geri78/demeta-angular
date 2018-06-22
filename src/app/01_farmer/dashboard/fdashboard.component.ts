@@ -7,7 +7,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class FDashboardComponent implements OnInit {
 
-  constructor() { }
+  public showHistory: boolean;
+  constructor() {
+    this.showHistory = true;
+   }
 
   ngOnInit() {
   }
