@@ -2,24 +2,46 @@
   Welcome to the history view!
 </p>
 
+
+<!--
 <mat-table class="delivery-table mat-elevation-z8" [dataSource]="dataSource">
+    <ng-container matColumnDef="seqNo">
+        <div *matHeaderCellDef>#</div>
+        <div *matCellDef="let delivery">{{delivery.seqNo}}</div>
+    </ng-container>
+    <ng-container matColumnDef="description">
+        <div *matHeaderCellDef>Description</div>
+        <div class="description-cell"
+                  *matCellDef="let delivery">{{delivery.description}}</div>
+    </ng-container>
+    <ng-container matColumnDef="duration">
+        <div *matHeaderCellDef>Duration</div>
+        <div class="duration-cell" *matCellDef="let delivery">{{delivery.duration}}</div>
+    </ng-container>
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns"
+                                (click)="onRowClicked(row)" ></mat-row>
+  </mat-table>
+-->
+
+  <mat-table class="delivery-table2 mat-elevation-z8" [dataSource]="dataSource"
+    matSort matSortActive="seqNo" matSortDirection="asc" matSortDisableClear>
   <ng-container matColumnDef="seqNo">
-      <div *matHeaderCellDef>#</div>
-      <div *matCellDef="let delivery">{{delivery.seqNo}}</div>
+      <mat-header-cell *matHeaderCellDef>#</mat-header-cell>
+      <mat-cell *matCellDef="let delivery">{{delivery.seqNo}}</mat-cell>
   </ng-container>
   <ng-container matColumnDef="description">
-      <div *matHeaderCellDef>Description</div>
-      <div class="description-cell"
-                *matCellDef="let delivery">{{delivery.description}}</div>
+      <mat-header-cell *matHeaderCellDef>Description</mat-header-cell>
+      <mat-cell *matCellDef="let delivery" class="description-cell">{{delivery.description}}</mat-cell>
   </ng-container>
   <ng-container matColumnDef="duration">
-      <div *matHeaderCellDef>Duration</div>
-      <div class="duration-cell" *matCellDef="let delivery">{{delivery.duration}}</div>
+      <mat-header-cell *matHeaderCellDef>Duration</mat-header-cell>
+      <mat-cell *matCellDef="let delivery" class="duration-cell">{{delivery.duration}}</mat-cell>
   </ng-container>
   <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
   <mat-row *matRowDef="let row; columns: displayedColumns"
                               (click)="onRowClicked(row)" ></mat-row>
 </mat-table>
 
-
+<!-- https://blog.angular-university.io/angular-material-data-table/ -->
 
