@@ -2,7 +2,7 @@ import { Web3WrapperService } from './../services/web3wrapper.service';
 import { Component, OnInit, HostListener, NgZone  } from '@angular/core';
 import { AuthenticationService } from '../services/authentication.service';
 import { Router } from '@angular/router';
-import { User } from './user';
+import { User } from '../dataObjects/user';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { MatToolbarModule } from '@angular/material/toolbar';
@@ -10,6 +10,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { ActualDSService } from '../services/actualDS.service';
 
 @Component({
   selector: 'app-login',
