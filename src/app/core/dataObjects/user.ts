@@ -22,4 +22,16 @@ public static assign(o: any): User {
   u.image = o.data.image;
   return u;
   }
+
+  public toString(): string {
+    return  'user( id:' + this.id +
+            ' uid:' + this.uid +
+            ' email:' + this.email +
+            ' name:' + this.name +
+            ' allow_password_change:' + this.allow_password_change +
+            ' nickname:' + this.nickname +
+            ' provider:' + this.provider +
+            ' image:' + this.image +
+            ') ';
+  }
 }

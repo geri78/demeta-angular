@@ -2,6 +2,7 @@ import { Web3WrapperService } from './../services/web3wrapper.service';
 import { Component, OnInit, HostListener, NgZone  } from '@angular/core';
 import { AuthenticationService } from '../services/authentication.service';
 import { Router } from '@angular/router';
+<<<<<<< HEAD
 import { User } from './user';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
@@ -10,6 +11,10 @@ import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
+=======
+import { ActualDSService } from './../services/actualDS.service';
+import { User } from '../dataObjects/user';
+>>>>>>> 0eb66a6d7fc816893db7b2ba88ac23f60c91d9bc
 
 @Component({
   selector: 'app-login',
@@ -17,12 +22,16 @@ import { MatFormFieldModule } from '@angular/material/form-field';
   styleUrls: ['./login.component.scss']
 })
 
+<<<<<<< HEAD
 export class LoginComponent implements OnInit {
   form: FormGroup;
   public show = false;
   public buttonName = 'Show';
   private formSubmitAttempt: boolean;
   _actUser: User;
+=======
+ // _actUser: User;
+>>>>>>> 0eb66a6d7fc816893db7b2ba88ac23f60c91d9bc
 
   // set the default value of our number
   constructor(private authentication: AuthenticationService,
@@ -32,7 +41,9 @@ export class LoginComponent implements OnInit {
   ngOnInit() {
     this._web3wrap.checkAndInstantiateWeb3();
     this._web3wrap.onReady();
-    this._web3wrap.initAxAgroTokenContract();
+    this._web3wrap.initContracts();
+    ActualDSService.getInstance().setWeb3Wrapper(this._web3wrap);
+    // debug:
    /* this._web3wrap.AxEuroToken_approve( '0x0051D40C97ca3e7581752689ae2F36Fdbb2365bC', 1,
                                         '0x003A9B54a8Baf82F493c9980C031Ec70CcB2D67a', null);*/
     /*this.form = this.fb.group({
@@ -83,7 +94,7 @@ export class LoginComponent implements OnInit {
     this.authentication.login(this, username, password);
   }
 
-
+/*
   public setActUser(o: Object) {
    this._actUser = User.assign(o);
   }
@@ -91,4 +102,8 @@ export class LoginComponent implements OnInit {
   public getActUser(): User {
     return this._actUser;
   }
+<<<<<<< HEAD
+=======
+*/
+>>>>>>> 0eb66a6d7fc816893db7b2ba88ac23f60c91d9bc
 }

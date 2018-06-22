@@ -24,6 +24,10 @@ const routes: Routes = [
     loadChildren: '../form/form.module#FormModule'
   },
   {
+    path: 'farmer',
+    loadChildren: '../01_farmer/farmer.module#FarmerModule'
+  },
+  {
     path: '**',
     component: NotFoundComponent
   }

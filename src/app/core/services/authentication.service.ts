@@ -1,3 +1,5 @@
+import { Company } from './../dataObjects/company';
+import { ActualDSService } from './actualDS.service';
 import { Web3WrapperService } from './web3wrapper.service';
 import { Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
@@ -5,7 +7,7 @@ import { Router } from '@angular/router';
 // import { Http, Headers, RequestOptions, RequestMethod, ResponseContentType } from '@angular/http';
 import { HttpClient, HttpEvent, HttpInterceptor, HttpHandler, HttpRequest, HttpHeaders} from '@angular/common/http';
 import { LoginComponent } from '../login/login.component';
-import { User } from '../login/user';
+import { User } from '../dataObjects/user';
 
 @Injectable()
 export class AuthenticationService {
@@ -41,14 +43,6 @@ private dologin(login: LoginComponent, username: string, password: string)  {
     const h: HttpHeaders = new HttpHeaders()
                          .set('Accept', 'application/json')
                          .set('content-type', 'application/x-www-form-urlencoded');
-    /* const h: Headers = new Headers();
-    // h.append('content-type', 'application/json');
-    // const reqopt = new RequestOptions ( {headers: h} );*/
-    // const h: Headers = new Headers();
-    // h.append('content-type', 'application/x-www-form-urlencoded; charset=utf-8');
-    // h.append('Accept', 'application/json');
-    // const rct: ResponseContentType = ResponseContentType.Json;
-    // const reqopt = new RequestOptions ( {headers: h , responseType: rct} );
 
     this._http.post(AuthenticationService.s_url + '/auth/sign_in', body , {headers: h, observe: 'response'} )
     .subscribe(result => {
@@ -75,7 +69,7 @@ private  processResponse(login: LoginComponent, headers: HttpHeaders, ret: boole
       AuthenticationService.s_token = headers.get('access-token');
       // this._data = obj.toString();
       this._isLoginOK = true;
-      login.setActUser(obj);
+      ActualDSService.getInstance().setUser(User.assign(obj));
       this.router.navigate(['admin', 'dashboard']);
     } else {
       alert('login failed!');
@@ -89,16 +83,23 @@ public  login(login: LoginComponent, username: string, password: string) {
     this.dologin(login, username, password);
   }
 
-    /* TESTING: check get user ....
-    this._http.get<User>(AuthenticationService.s_url + '/users/'+ data.id).subscribe(data => {
-      console.log('User ID: ' + data.id);
-      console.log('name: ' + data.name);
-      console.log('email: ' + data.email);
-    });
-    */
-
 public logout() {
-   const body: string = 'uid=' +  encodeURIComponent(AuthenticationService.s_uid) +
+/* TEST: read company
+   this._http.get<Company>(AuthenticationService.s_url + '/companies/1.json').subscribe(data => {
+    const c: Company = Company.assign(data);
+    ActualDSService.getInstance().setCompany(c);
+    console.log('actual_company:' + ActualDSService.getInstance().getCompany().toString());
+    const d: Date = c.updated_at;
+    const s: number = d.getSeconds();
+    d.setSeconds(0, 0);
+    c.updated_at = d;
+   },
+  error => {
+    console.log('/companies/1.json error:' + error.statusText);
+
+  });
+*/
+  const body: string = 'uid=' +  encodeURIComponent(AuthenticationService.s_uid) +
                         '&access-token=' + encodeURIComponent(AuthenticationService.s_token) +
                         '&client=' + encodeURIComponent(AuthenticationService.s_client);
    this._isLoginOK = false;
@@ -106,6 +107,9 @@ public logout() {
    const h: HttpHeaders = new HttpHeaders()
                         .set('Accept', 'application/json')
                         .set('content-type', 'application/x-www-form-urlencoded');
+
+    const u: User = ActualDSService.getInstance().getUser();
+    console.log('actual user:' + u.toString());
 
     this._http.delete(AuthenticationService.s_url + '/auth/sign_out/?' + body,  { observe: 'response'} )
    .subscribe(result => {

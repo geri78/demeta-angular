@@ -46,3 +46,9 @@ For a more detailed explanation on the architectural decisions made in this desi
 # Components needed to install
 npm install --save @angular/material    --> material stuff install
 npm install --save @angular/cdk
+
+# Added Objects:
+in dataObjects: 
+- User
+- Company
+
