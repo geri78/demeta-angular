@@ -75,7 +75,6 @@ private  processResponse(login: LoginComponent, headers: HttpHeaders, ret: boole
       // show header
       //this.header.show = true;
       this.showHeader_bol = true;
-      //this.showHeader = show;
       this.router.navigate(['admin', 'dashboard']);
     } else {
       alert('login failed!');
