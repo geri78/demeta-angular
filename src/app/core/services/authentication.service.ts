@@ -16,6 +16,8 @@ export class AuthenticationService {
   private static s_uid: string;
   public static s_url: string;
 
+  public showHeader_bol = false;
+  public showHeader = false;
   public _isLoginOK = false;
 
   /*
@@ -70,6 +72,10 @@ private  processResponse(login: LoginComponent, headers: HttpHeaders, ret: boole
       // this._data = obj.toString();
       this._isLoginOK = true;
       ActualDSService.getInstance().setUser(User.assign(obj));
+      // show header
+      //this.header.show = true;
+      this.showHeader_bol = true;
+      //this.showHeader = show;
       this.router.navigate(['admin', 'dashboard']);
     } else {
       alert('login failed!');
