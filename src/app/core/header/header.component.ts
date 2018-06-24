@@ -8,7 +8,7 @@ import { AuthenticationService } from '../services/authentication.service';
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit {
-  public showHeader_bol = false;
+  public showHeader_bol = true;
 
   constructor(private authentication: AuthenticationService) { }
 
