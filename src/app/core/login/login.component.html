@@ -36,10 +36,10 @@
           <h2 class="form-title" id="login">Log in</h2>
           <div class="form-holder">
             <input type="userName" class="input" placeholder="userName" value="hannes@stiebitzhofer.com" #userName required autofocus formControlName="userName" (keyup.enter)="login(userName.value, password.value)"/>
-              <!--<span style="color:red" ng-show="myForm.userName.$dirty && myForm.userName.$invalid">
-                <span ng-show="myForm.userName.$error.required">Username is required</span>
-              </span>-->
-            <input type="password" class="input" placeholder="password" #password required (keyup.enter)="login(userName.value, password.value)"/>
+            <input type="password" class="input" placeholder="password" value="12345678" #password required (keyup.enter)="login(userName.value, password.value)"/>
+            <span style="color:red" *ngIf="showError" [style.color] = "isSpecial"> <!--ng-show="myForm.userName.$dirty && myForm.userName.$invalid"-->
+              Password is required
+            </span>
           </div>
           <button class="small blue" (click)="login(userName.value, password.value)">&nbsp;&nbsp;&nbsp;&nbsp;Log in&nbsp;&nbsp;&nbsp;&nbsp;</button>
         </div>

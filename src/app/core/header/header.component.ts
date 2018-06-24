@@ -7,10 +7,15 @@ import { AuthenticationService } from '../services/authentication.service';
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit {
+  public showHeader_bol = false;
 
   constructor(private authentication: AuthenticationService) { }
 
   ngOnInit() {
+  }
+
+  showHeader() {
+    this.showHeader_bol = true;
   }
 
   logout() {

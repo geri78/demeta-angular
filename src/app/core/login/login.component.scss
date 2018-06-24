@@ -12,6 +12,7 @@ html,body {
 	font-family: "Fira Sans", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  [hidden] { display: none !important;}
 }
 
 .middle {

@@ -7,6 +7,7 @@ import { Router } from '@angular/router';
 // import { Http, Headers, RequestOptions, RequestMethod, ResponseContentType } from '@angular/http';
 import { HttpClient, HttpEvent, HttpInterceptor, HttpHandler, HttpRequest, HttpHeaders} from '@angular/common/http';
 import { LoginComponent } from '../login/login.component';
+import { HeaderComponent } from '../header/header.component';
 import { User } from '../dataObjects/user';
 
 @Injectable()
@@ -17,7 +18,6 @@ export class AuthenticationService {
   public static s_url: string;
 
   public showHeader_bol = false;
-  public showHeader = false;
   public _isLoginOK = false;
 
   /*
@@ -39,7 +39,7 @@ export class AuthenticationService {
   constructor( private router: Router, private _http: HttpClient, private _web3: Web3WrapperService ) { }
 
 private dologin(login: LoginComponent, username: string, password: string)  {
-     const body: string = 'email=' + encodeURIComponent(username) + '&password=' + encodeURIComponent(password);
+    const body: string = 'email=' + encodeURIComponent(username) + '&password=' + encodeURIComponent(password);
     this._isLoginOK = false;
 
     const h: HttpHeaders = new HttpHeaders()
@@ -73,7 +73,7 @@ private  processResponse(login: LoginComponent, headers: HttpHeaders, ret: boole
       this._isLoginOK = true;
       ActualDSService.getInstance().setUser(User.assign(obj));
       // show header
-      //this.header.show = true;
+
       this.showHeader_bol = true;
       this.router.navigate(['admin', 'dashboard']);
     } else {

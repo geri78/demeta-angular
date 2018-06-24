@@ -22,6 +22,8 @@ export class LoginComponent implements OnInit {
   form: FormGroup;
   public showLogin = false;
   public buttonName = 'Show';
+  showError = false;
+  isSpecial = '';
   private formSubmitAttempt: boolean;
   _actUser: User;
 
@@ -84,7 +86,12 @@ export class LoginComponent implements OnInit {
 
   login(username, password) {
     /*this.toggle();*/
-    this.authentication.login(this, username, password);
+    this.isSpecial = 'red';
+    if (password === '') {
+      this.showError = true;
+    } else {
+      this.showError = false;
+      this.authentication.login(this, username, password); }
   }
 
 /*
