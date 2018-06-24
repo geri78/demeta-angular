@@ -2,7 +2,7 @@ import { Company } from './../dataObjects/company';
 import { ActualDSService } from './actualDS.service';
 import { Web3WrapperService } from './web3wrapper.service';
 import { Observable } from 'rxjs';
-import { Injectable } from '@angular/core';
+import { Injectable, EventEmitter, Output } from '@angular/core';
 import { Router } from '@angular/router';
 // import { Http, Headers, RequestOptions, RequestMethod, ResponseContentType } from '@angular/http';
 import { HttpClient, HttpEvent, HttpInterceptor, HttpHandler, HttpRequest, HttpHeaders} from '@angular/common/http';
@@ -17,8 +17,11 @@ export class AuthenticationService {
   private static s_uid: string;
   public static s_url: string;
 
-  public showHeader_bol = false;
+  // public showHeader_bol = false;
   public _isLoginOK = false;
+
+  showHeaderEvt = new EventEmitter<boolean>();
+
 
   /*
   * prepareHeader is called from ApiInterceptorService to get the actual access-token
@@ -38,7 +41,16 @@ export class AuthenticationService {
 
   constructor( private router: Router, private _http: HttpClient, private _web3: Web3WrapperService) { }
 
-private dologin(login: LoginComponent, username: string, password: string)  {
+  public getShowHeaderEmitter(): EventEmitter<boolean> {
+    return this.showHeaderEvt;
+  }
+
+  private show_Header(visible: boolean) {
+    this.showHeaderEvt.emit(visible);
+  }
+
+
+  private dologin(login: LoginComponent, username: string, password: string)  {
     const body: string = 'email=' + encodeURIComponent(username) + '&password=' + encodeURIComponent(password);
     this._isLoginOK = false;
 
@@ -73,8 +85,7 @@ private  processResponse(login: LoginComponent, headers: HttpHeaders, ret: boole
       this._isLoginOK = true;
       ActualDSService.getInstance().setUser(User.assign(obj));
       // show header
-
-      this.showHeader_bol = true;
+      this.show_Header(true);
       this.router.navigate(['admin', 'dashboard']);
     } else {
       alert('login failed!');
@@ -82,13 +93,13 @@ private  processResponse(login: LoginComponent, headers: HttpHeaders, ret: boole
     }
   }
 
-public  login(login: LoginComponent, username: string, password: string) {
+  public  login(login: LoginComponent, username: string, password: string) {
     AuthenticationService.s_url = 'https://demeta-rails-staging.herokuapp.com';
     /*this._url = 'https://axgro-demo-server-staging.herokuapp.com/api';*/
     this.dologin(login, username, password);
   }
 
-public logout() {
+  public logout() {
 /* TEST: read company
    this._http.get<Company>(AuthenticationService.s_url + '/companies/1.json').subscribe(data => {
     const c: Company = Company.assign(data);
@@ -129,15 +140,16 @@ public logout() {
    );
   }
 
-private  doLogout() {
+  private  doLogout() {
     this._isLoginOK = false;
     AuthenticationService.s_uid = null;
+    this.show_Header(false);
     this.router.navigate(['login']);
   }
 
 
 
-public  isAuthenticated(): boolean {
+  public  isAuthenticated(): boolean {
     return this._isLoginOK;
   }
 }

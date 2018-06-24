@@ -8,15 +8,23 @@ import { AuthenticationService } from '../services/authentication.service';
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit {
-  public showHeader_bol = true;
+  public showHeader_bol = false;
+  showHeaderSubscription: any;
 
-  constructor(private authentication: AuthenticationService) { }
+  constructor(private authentication: AuthenticationService) {
 
-  ngOnInit() {
+
+
   }
 
-  showHeader() {
-    this.showHeader_bol = true;
+  ngOnInit() {
+    this.showHeaderSubscription = this.authentication.getShowHeaderEmitter()
+    .subscribe(item => this.showHeader(item));
+  }
+
+
+  showHeader(visible: boolean) {
+    this.showHeader_bol = visible;
   }
 
   logout() {

@@ -1,5 +1,6 @@
+import { HeaderComponent } from './../header/header.component';
 import { Web3WrapperService } from './../services/web3wrapper.service';
-import { Component, OnInit, HostListener, NgZone  } from '@angular/core';
+import { Component, OnInit, HostListener, NgZone, ViewChild  } from '@angular/core';
 import { AuthenticationService } from '../services/authentication.service';
 import { Router } from '@angular/router';
 import { User } from '../dataObjects/user';
@@ -23,6 +24,9 @@ export class LoginComponent implements OnInit {
   isSpecial = '';
   private formSubmitAttempt: boolean;
   _actUser: User;
+
+  @ViewChild(HeaderComponent)
+  private headerComponent: HeaderComponent;
 
   // set the default value of our number
   constructor(private authentication: AuthenticationService,
