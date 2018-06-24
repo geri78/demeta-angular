@@ -1,3 +1,4 @@
+import { AuthenticationService } from './../core/services/authentication.service';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -7,10 +8,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class FarmerComponent implements OnInit {
 
-  constructor() {
+  constructor(private authentication: AuthenticationService ) {
+
    }
 
   ngOnInit() {
+    const a = this.authentication;
+    const b = a.isAuthenticated();
   }
 
 }

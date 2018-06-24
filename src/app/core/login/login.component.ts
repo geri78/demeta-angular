@@ -25,19 +25,19 @@ export class LoginComponent implements OnInit {
   private formSubmitAttempt: boolean;
   _actUser: User;
 
-  @ViewChild(HeaderComponent)
-  private headerComponent: HeaderComponent;
 
   // set the default value of our number
   constructor(private authentication: AuthenticationService,
     private router: Router,
-    private _web3wrap: Web3WrapperService) { }
+    private _web3wrap: Web3WrapperService,
+    private _actDSService: ActualDSService) { }
 
   ngOnInit() {
     this._web3wrap.checkAndInstantiateWeb3();
     this._web3wrap.onReady();
     this._web3wrap.initContracts();
-    ActualDSService.getInstance().setWeb3Wrapper(this._web3wrap);
+    this._actDSService.setWeb3Wrapper(this._web3wrap);
+    // ActualDSService.getInstance().setWeb3Wrapper(this._web3wrap);
     // debug:
    /* this._web3wrap.AxEuroToken_approve( '0x0051D40C97ca3e7581752689ae2F36Fdbb2365bC', 1,
                                         '0x003A9B54a8Baf82F493c9980C031Ec70CcB2D67a', null);*/

@@ -1,8 +1,9 @@
 import { Company } from './../dataObjects/company';
 import { User } from '../dataObjects/user';
 import { Web3WrapperService  } from './web3wrapper.service';
+import { Injectable } from '@angular/core';
 
-
+@Injectable()
 export class ActualDSService {
 private static s_actDS: ActualDSService = null;
 
@@ -16,13 +17,14 @@ private _web3wrap: Web3WrapperService = null;
 // ----------------------------------------------------------
 //  used to get an instance to the actual data objects ( user, person, company, roles, ...)
 //
+/*
 public static getInstance(): ActualDSService {
     if (ActualDSService.s_actDS == null) {
       ActualDSService.s_actDS = new ActualDSService();
     }
     return ActualDSService.s_actDS;
 }
-
+*/
 // ----------------------------------------------------------
 // get the logged in user data
 //
@@ -44,7 +46,7 @@ public getWeb3Wrapper() {
 //   non public functions to fill the ActualDSService
 
 
-private constructor() {
+public constructor() {
 }
 
 public setUser(u: User) {

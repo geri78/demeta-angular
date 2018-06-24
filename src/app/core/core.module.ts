@@ -1,3 +1,4 @@
+import { ActualDSService } from './services/actualDS.service';
 import { DeliveryService } from './services/deliveryService';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -25,10 +26,11 @@ import { ApiInterceptorService } from './services/api-interceptor.service';
     HeaderComponent
   ],
   providers: [
+    Web3WrapperService,
+    ActualDSService,
     AuthenticationService,
     AuthGuardService,
     DeliveryService,
-    Web3WrapperService,
     { provide: HTTP_INTERCEPTORS,
     useClass: ApiInterceptorService,
     multi: true

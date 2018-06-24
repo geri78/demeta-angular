@@ -39,7 +39,12 @@ export class AuthenticationService {
     return h;
   }
 
-  constructor( private router: Router, private _http: HttpClient, private _web3: Web3WrapperService) { }
+  constructor(
+    private router: Router,
+    private _http: HttpClient,
+    private _web3: Web3WrapperService,
+    private _actDSService: ActualDSService
+  ) { }
 
   public getShowHeaderEmitter(): EventEmitter<boolean> {
     return this.showHeaderEvt;
@@ -83,7 +88,7 @@ private  processResponse(login: LoginComponent, headers: HttpHeaders, ret: boole
       AuthenticationService.s_token = headers.get('access-token');
       // this._data = obj.toString();
       this._isLoginOK = true;
-      ActualDSService.getInstance().setUser(User.assign(obj));
+      this._actDSService.setUser(User.assign(obj));
       // show header
       this.show_Header(true);
       this.router.navigate(['admin', 'dashboard']);
@@ -103,8 +108,8 @@ private  processResponse(login: LoginComponent, headers: HttpHeaders, ret: boole
 /* TEST: read company
    this._http.get<Company>(AuthenticationService.s_url + '/companies/1.json').subscribe(data => {
     const c: Company = Company.assign(data);
-    ActualDSService.getInstance().setCompany(c);
-    console.log('actual_company:' + ActualDSService.getInstance().getCompany().toString());
+    this._actDSService.setCompany(c);
+    console.log('actual_company:' + this._actDSService.getCompany().toString());
     const d: Date = c.updated_at;
     const s: number = d.getSeconds();
     d.setSeconds(0, 0);
@@ -124,7 +129,7 @@ private  processResponse(login: LoginComponent, headers: HttpHeaders, ret: boole
                         .set('Accept', 'application/json')
                         .set('content-type', 'application/x-www-form-urlencoded');
 
-    const u: User = ActualDSService.getInstance().getUser();
+    const u: User = this._actDSService.getUser();
     console.log('actual user:' + u.toString());
 
     this._http.delete(AuthenticationService.s_url + '/auth/sign_out/?' + body,  { observe: 'response'} )
