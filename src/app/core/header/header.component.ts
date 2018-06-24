@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Injectable } from '@angular/core';
 import { AuthenticationService } from '../services/authentication.service';
 
+@Injectable()
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',

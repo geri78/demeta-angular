@@ -36,7 +36,7 @@ export class AuthenticationService {
     return h;
   }
 
-  constructor( private router: Router, private _http: HttpClient, private _web3: Web3WrapperService ) { }
+  constructor( private router: Router, private _http: HttpClient, private _web3: Web3WrapperService) { }
 
 private dologin(login: LoginComponent, username: string, password: string)  {
     const body: string = 'email=' + encodeURIComponent(username) + '&password=' + encodeURIComponent(password);

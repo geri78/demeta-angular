@@ -5,11 +5,6 @@ import { Router } from '@angular/router';
 import { User } from '../dataObjects/user';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
-import { MatToolbarModule } from '@angular/material/toolbar';
-import { MatCardModule } from '@angular/material/card';
-import { MatButtonModule } from '@angular/material/button';
-import { MatInputModule } from '@angular/material/input';
-import { MatFormFieldModule } from '@angular/material/form-field';
 import { ActualDSService } from '../services/actualDS.service';
 
 @Component({
@@ -22,7 +17,9 @@ export class LoginComponent implements OnInit {
   form: FormGroup;
   public showLogin = false;
   public buttonName = 'Show';
-  showError = false;
+  private errorFound = true;
+  showErrorPassword = false;
+  showErrorUserName = false;
   isSpecial = '';
   private formSubmitAttempt: boolean;
   _actUser: User;
@@ -86,12 +83,23 @@ export class LoginComponent implements OnInit {
 
   login(username, password) {
     /*this.toggle();*/
+
     this.isSpecial = 'red';
-    if (password === '') {
-      this.showError = true;
+    if (username === '') {
+      this.showErrorUserName = true;
     } else {
-      this.showError = false;
-      this.authentication.login(this, username, password); }
+      this.showErrorUserName = false;
+      this.errorFound = false;
+    }
+    if (password === '') {
+      this.showErrorPassword = true;
+    } else {
+      this.showErrorPassword = false;
+      this.errorFound = false;
+    }
+    if (!this.errorFound) {
+      this.authentication.login(this, username, password);
+    }
   }
 
 /*
