@@ -7,6 +7,7 @@ import { AuthenticationService } from '../services/authentication.service';
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit {
+  //true - shows header always. False, header is hidden at login
   public showHeader_bol = false;
   showHeaderSubscription: any;
 
