@@ -42,7 +42,7 @@
             <input type="password" class="input" placeholder="password" value="12345678" #password required (keyup.enter)="login(userName.value, password.value)"/>
             <span style="color:red" *ngIf="showErrorPassword" [style.color] = "isSpecial">Password is required</span>
           </div>
-          <button class="small blue" (click)="login(userName.value, password.value)">&nbsp;&nbsp;&nbsp;&nbsp;Log in&nbsp;&nbsp;&nbsp;&nbsp;</button>
+          <button class="btn btn-outline-success my-2 my-sm-0" type="submit" (click)="login(userName.value, password.value)">&nbsp;&nbsp;&nbsp;&nbsp;Log in&nbsp;&nbsp;&nbsp;&nbsp;</button>
         </div>
     </div>
   </div>
