@@ -11,6 +11,7 @@
 </div>
 
 <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #E0F8EC;" id="header" *ngIf="showHeader_bol">
+  <img height="60px" src="../../../images/weizenfeld_greenHeader.jpg">
   <a class="navbar-brand" href="#">DEMETA</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
@@ -21,11 +22,20 @@
       <li class="nav-item active">
         <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
       </li>
-      <li class="nav-item">
+      <!--<li class="nav-item">
         <a class="nav-link" routerLink="/form">Form</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" routerLink="/farmer/">Farmer ohneDD</a>
+      </li>-->
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Warehousekeeper
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" routerLink="/farmer/">Dashboard</a>
+          <a class="dropdown-item" routerLink="/farmer/fhistory">History</a>
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item">User data</a>
+          <a class="dropdown-item">Framecontracts</a>
+        </div>
       </li>
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -35,7 +45,8 @@
           <a class="dropdown-item" routerLink="/farmer/">Dashboard</a>
           <a class="dropdown-item" routerLink="/farmer/fhistory">History</a>
           <div class="dropdown-divider"></div>
-          <a class="dropdown-item">History X</a>
+          <a class="dropdown-item">User data</a>
+          <a class="dropdown-item">Trade</a>
         </div>
       </li>
       <li class="nav-item">
