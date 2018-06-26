@@ -1,3 +1,4 @@
+import { Configuration } from './../../configuration';
 import { Company } from './../dataObjects/company';
 import { ActualDSService } from './actualDS.service';
 import { Web3WrapperService } from './web3wrapper.service';
@@ -99,7 +100,7 @@ private  processResponse(login: LoginComponent, headers: HttpHeaders, ret: boole
   }
 
   public  login(login: LoginComponent, username: string, password: string) {
-    AuthenticationService.s_url = 'https://demeta-rails-staging.herokuapp.com';
+    AuthenticationService.s_url = Configuration.apiEndpoint;
     /*this._url = 'https://axgro-demo-server-staging.herokuapp.com/api';*/
     this.dologin(login, username, password);
   }
