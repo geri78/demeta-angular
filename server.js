@@ -25,8 +25,14 @@ app.use(bodyParser.json());
 
 // Create link to Angular build directory
 var distDir = __dirname + "/dist/";
-app.use(express.static(distDir));
 
+app.use(express.static(distDir));
+// cors headers
+app.all('/*', function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "X-Requested-With");
+  next();
+});
   // Initialize the app.
   var server = app.listen(process.env.PORT || 8080, function () {
     var port = server.address().port;
