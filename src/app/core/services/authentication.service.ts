@@ -10,6 +10,7 @@ import { HttpClient, HttpEvent, HttpInterceptor, HttpHandler, HttpRequest, HttpH
 import { LoginComponent } from '../login/login.component';
 import { HeaderComponent } from '../header/header.component';
 import { User } from '../dataObjects/user';
+import { environment } from '../../../environments/environment';
 
 @Injectable()
 export class AuthenticationService {
@@ -64,7 +65,7 @@ export class AuthenticationService {
                          .set('Accept', 'application/json')
                          .set('content-type', 'application/x-www-form-urlencoded');
 
-    this._http.post(AuthenticationService.s_url + '/auth/sign_in', body , {headers: h, observe: 'response'} )
+    this._http.post(environment.apiBasePath + '/auth/sign_in', body , {headers: h, observe: 'response'} )
     .subscribe(result => {
       if (!result.ok) {
         console.log(result);

@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  apiBasePath: 'localhost:4201'
+  apiBasePath: 'https://demeta-rails-staging.herokuapp.com'
 };
