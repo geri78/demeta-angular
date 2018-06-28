@@ -1,4 +1,3 @@
-import { HeaderComponent } from './../header/header.component';
 import { Web3WrapperService } from './../services/web3wrapper.service';
 import { Component, OnInit, HostListener, NgZone, ViewChild  } from '@angular/core';
 import { AuthenticationService } from '../services/authentication.service';
@@ -86,17 +85,17 @@ export class LoginComponent implements OnInit {
 */
 
   login(username, password) {
-    /*this.toggle();*/
 
-    this.isSpecial = 'red';
     if (username === '') {
       this.showErrorUserName = true;
+      this.errorFound = true;
     } else {
       this.showErrorUserName = false;
       this.errorFound = false;
     }
     if (password === '') {
       this.showErrorPassword = true;
+      this.errorFound = true;
     } else {
       this.showErrorPassword = false;
       this.errorFound = false;
@@ -104,6 +103,7 @@ export class LoginComponent implements OnInit {
     if (!this.errorFound) {
       this.authentication.login(this, username, password);
     }
+    return false;
   }
 
 /*
