@@ -1,13 +1,4 @@
-<!--<form class="form-signin">
-  <h2>Login</h2>
-  <label for="username" class="sr-only">Username</label>
-  <input type="text" required autofocus id="username" #username placeholder="Username/Email" />
-  <label for="password" class="sr-only">Password</label>
-  <input type="password" class="form-control" required autofocus id="password" #password placeholder="Password" (keyup.enter)="login(username.value, password.value)" />
-  <button type="button" class="large green" (click)="login(username.value, password.value)">Login</button>
-</form>
-
-<div class="form-structor">
+<!--<div class="form-structor">
 	<div class="signup" ng-show="signup">
 		<h2 class="form-title" id="signup" ng-click="toogle($event)"><span>or</span>Sign up</h2>
 		<div class="form-holder">
@@ -54,11 +45,16 @@
   <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
   <label for="inputEmail" class="sr-only">Username</label>
   <input type="userName" id="userName" class="form-control" placeholder="userName" value="hannes@stiebitzhofer.com" #userName required (keyup.enter)="login(userName.value, password.value)" autofocus>
+  <span style="color:red" *ngIf="showErrorUserName">Username is required</span>
   <img src="../../../images/NFFFFFF-0.png"><br>
   <label for="inputPassword" class="sr-only">Password</label>
   <input type="password" id="password" class="form-control" placeholder="password" value="12345678" #password required (keyup.enter)="login(userName.value, password.value)" required>
-  <small id="passwordHelpBlock" class="form-text text-muted">
+  <span style="color:red" *ngIf="showErrorPassword">Password is required</span>
+  <div class="invalid-feedback">
       Your password must be 8-20 characters long, contain letters and numbers.
+  </div>
+  <small id="passwordHelpBlock" class="form-text text-muted">
+      Please enter your Username and Password.
   </small>
   <div class="checkbox mb-3">
     <label>
@@ -89,3 +85,4 @@
     <a class="dropdown-item" href="#">Separated link</a>
   </div>
 </div>-->
+
