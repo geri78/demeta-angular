@@ -7,8 +7,7 @@
       "request": "launch",
       "url": "http://localhost:4200/#",
       "webRoot": "${workspaceFolder}",
-      "port" : 9222,
-      "runtimeArgs" : [ "--disable-web-security" ],
+      "port" : 9222
     },
     {
       "name": "Attach Chrome",
