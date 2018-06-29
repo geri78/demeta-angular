@@ -18,10 +18,11 @@ export class LoginComponent implements OnInit {
   public showLogin = false;
   public buttonName = 'Show';
   private errorFound = true;
+  private loginButton;
+  private disableLoginButton = false;
   showErrorPassword = false;
   showErrorUserName = false;
   isSpecial = '';
-  private formSubmitAttempt: boolean;
   _actUser: User;
 
 
@@ -86,6 +87,8 @@ export class LoginComponent implements OnInit {
 
   login(username, password) {
 
+    this.disableLoginButton = true;
+
     if (username === '') {
       this.showErrorUserName = true;
       this.errorFound = true;
@@ -103,6 +106,7 @@ export class LoginComponent implements OnInit {
     if (!this.errorFound) {
       this.authentication.login(this, username, password);
     }
+    /*this.disableLoginButton = false;*/
     return false;
   }
 

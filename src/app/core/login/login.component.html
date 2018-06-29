@@ -61,7 +61,7 @@
       <input type="checkbox" value="remember-me"> Remember me
     </label>
   </div>
-  <button class="btn btn-lg btn-block btn-outline-primary" type="submit" (click)="login(userName.value, password.value)">Sign in</button>
+  <button class="btn btn-lg btn-block btn-outline-primary" type="submit" (click)="login(userName.value, password.value)" id="loginButton" aria-disabled="disableLoginButton" [disabled]="disableLoginButton">Sign in</button>
 </form>
 </main>
 
