@@ -7,6 +7,7 @@ import { FarmerComponent } from './farmer.component';
 import { FDashboardComponent } from './dashboard/fdashboard.component';
 import { MatInputModule, MatPaginatorModule, MatProgressSpinnerModule, MatSortModule, MatTableModule } from '@angular/material';
 import { MaterialModule } from './../material/material.module';
+import { PackageComponent } from './package/package.component';
 
 @NgModule({
   imports: [
@@ -19,6 +20,6 @@ import { MaterialModule } from './../material/material.module';
     MatSortModule,
     MatProgressSpinnerModule
   ],
-  declarations: [FarmerComponent, FDashboardComponent, HistoryViewComponent]
+  declarations: [FarmerComponent, FDashboardComponent, HistoryViewComponent, PackageComponent]
 })
 export class FarmerModule { }
