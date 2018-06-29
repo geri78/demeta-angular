@@ -1,9 +1,9 @@
-import { Configuration } from './../../configuration';
+// import { Configuration } from './../../configuration';
 import { Company } from './../dataObjects/company';
 import { ActualDSService } from './actualDS.service';
 import { Web3WrapperService } from './web3wrapper.service';
 import { Observable } from 'rxjs';
-import { Injectable, EventEmitter, Output } from '@angular/core';
+import { Injectable, EventEmitter, Output, isDevMode } from '@angular/core';
 import { Router } from '@angular/router';
 // import { Http, Headers, RequestOptions, RequestMethod, ResponseContentType } from '@angular/http';
 import { HttpClient, HttpEvent, HttpInterceptor, HttpHandler, HttpRequest, HttpHeaders} from '@angular/common/http';
@@ -88,12 +88,30 @@ private  processResponse(login: LoginComponent, headers: HttpHeaders, ret: boole
       AuthenticationService.s_uid = headers.get('uid');
       AuthenticationService.s_client = headers.get('client');
       AuthenticationService.s_token = headers.get('access-token');
+      if   ( isDevMode()) {
+        console.log( 'uid:' + AuthenticationService.s_uid );
+        console.log( 'client:' + AuthenticationService.s_client );
+        console.log( 'access-token:' + AuthenticationService.s_token );
+      }
       // this._data = obj.toString();
       this._isLoginOK = true;
       this._actDSService.setUser(User.assign(obj));
       // show header
       this.show_Header(true);
       this.router.navigate(['admin', 'dashboard']);
+      // TEST preload companies ?!?
+      // this._actDSService.getAllCompanies();
+      // this._actDSService.getServerAllCompanies();
+      this._actDSService.getServerCompanyByID(1).then(c => { console.log(c.toString()); } )
+      .then(undefined, (error) => { console.log(error); });
+      this._actDSService.getServerCompanyByID(2).then(c => { console.log(c.toString()); } )
+      .then(undefined, (error) => { console.log(error); });
+      this._actDSService.getServerCompanyByID(1).then(c => { console.log(c.toString()); } )
+      .then(undefined, (error) => { console.log(error); });
+      this._actDSService.getServerCompanyByID(3).then(c => { console.log(c.toString()); } )
+      .then(undefined, (error) => { console.log(error); });
+
+
     } else {
       alert('login failed!');
       this.router.navigate(['login']);
@@ -101,27 +119,19 @@ private  processResponse(login: LoginComponent, headers: HttpHeaders, ret: boole
   }
 
   public  login(login: LoginComponent, username: string, password: string) {
-    AuthenticationService.s_url = Configuration.apiEndpoint;
+    AuthenticationService.s_url = environment.apiBasePath;
     /*this._url = 'https://axgro-demo-server-staging.herokuapp.com/api';*/
     this.dologin(login, username, password);
   }
 
   public logout() {
-/* TEST: read company
-   this._http.get<Company>(AuthenticationService.s_url + '/companies/1.json').subscribe(data => {
-    const c: Company = Company.assign(data);
-    this._actDSService.setCompany(c);
-    console.log('actual_company:' + this._actDSService.getCompany().toString());
-    const d: Date = c.updated_at;
-    const s: number = d.getSeconds();
-    d.setSeconds(0, 0);
-    c.updated_at = d;
-   },
-  error => {
-    console.log('/companies/1.json error:' + error.statusText);
 
-  });
-*/
+  // const c = this._actDSService.getCompanyByID(1);
+  // console.log ( 'company:' + c.toString());
+  this._actDSService.getServerCompanyByID(1).then(
+    c => { console.log('company:' + c.toString());
+    });
+
   const body: string = 'uid=' +  encodeURIComponent(AuthenticationService.s_uid) +
                         '&access-token=' + encodeURIComponent(AuthenticationService.s_token) +
                         '&client=' + encodeURIComponent(AuthenticationService.s_client);
