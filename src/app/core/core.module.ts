@@ -14,6 +14,7 @@ import { AuthenticationService } from './services/authentication.service';
 import { AuthGuardService } from './services/auth-guard.service';
 import { Web3WrapperService } from './services/web3wrapper.service';
 import { ApiInterceptorService } from './services/api-interceptor.service';
+import { SignupComponent } from './signup/signup.component';
 
 
 @NgModule({
@@ -21,7 +22,7 @@ import { ApiInterceptorService } from './services/api-interceptor.service';
     CommonModule,
     CoreRoutingModule
   ],
-  declarations: [LoginComponent, HeaderComponent, NotFoundComponent],
+  declarations: [LoginComponent, HeaderComponent, NotFoundComponent, SignupComponent],
   exports: [
     RouterModule,
     HeaderComponent

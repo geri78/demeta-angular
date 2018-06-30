@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { AuthGuardService } from './services/auth-guard.service';
 import { LoginComponent } from './login/login.component';
+import { SignupComponent } from './signup/signup.component';
 
 const routes: Routes = [
   {
@@ -26,6 +27,11 @@ const routes: Routes = [
   {
     path: 'farmer',
     loadChildren: '../01_farmer/farmer.module#FarmerModule'
+  },
+  {
+    path: 'signup',
+    component: SignupComponent
+    /*loadChildren: '/signup/signup.module#SignupModule'*/
   },
   {
     path: '**',
