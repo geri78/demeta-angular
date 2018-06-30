@@ -19,7 +19,7 @@ export class LoginComponent implements OnInit {
   public buttonName = 'Show';
   private errorFound = true;
   private loginButton;
-  private disableLoginButton = false;
+  public disableLoginButton = false;
   showErrorPassword = false;
   showErrorUserName = false;
   isSpecial = '';
