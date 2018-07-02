@@ -82,7 +82,7 @@ export class AuthenticationService {
   }
 
 
-private  processResponse(login: LoginComponent, headers: HttpHeaders, ret: boolean, obj: Object): void {
+private  processResponse(login: LoginComponent, headers: HttpHeaders, ret: boolean, obj: any): void {
 
     if (ret) {
       AuthenticationService.s_uid = headers.get('uid');
@@ -95,13 +95,21 @@ private  processResponse(login: LoginComponent, headers: HttpHeaders, ret: boole
       }
       // this._data = obj.toString();
       this._isLoginOK = true;
-      this._actDSService.setUser(User.assign(obj));
+      this._actDSService.setUser(User.assign(obj.data));
       // show header
       this.show_Header(true);
       this.router.navigate(['admin', 'dashboard']);
+      const cid = this._actDSService.getUser().company_id;
+      this._actDSService.getServerCompanyByID(cid)
+          .then(c => {this._actDSService.setCompany(c); } )
+          .then(undefined, (error) => { console.log('cant load company with id:' + cid + ' error:' + error); });
+
+      this._actDSService.getCompanyStorageAgreements(cid);
+
       // TEST preload companies ?!?
       // this._actDSService.getAllCompanies();
       // this._actDSService.getServerAllCompanies();
+      /*
       this._actDSService.getServerCompanyByID(1).then(c => { console.log(c.toString()); } )
       .then(undefined, (error) => { console.log(error); });
       this._actDSService.getServerCompanyByID(2).then(c => { console.log(c.toString()); } )
@@ -110,7 +118,7 @@ private  processResponse(login: LoginComponent, headers: HttpHeaders, ret: boole
       .then(undefined, (error) => { console.log(error); });
       this._actDSService.getServerCompanyByID(3).then(c => { console.log(c.toString()); } )
       .then(undefined, (error) => { console.log(error); });
-
+      */
 
     } else {
       alert('login failed!');

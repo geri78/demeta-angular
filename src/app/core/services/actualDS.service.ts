@@ -1,3 +1,4 @@
+import { StorageAgreement } from './../dataObjects/storageagreement';
 import { environment } from './../../../environments/environment.prod';
 // import { Configuration } from '../../configuration';
 import { HttpClient } from '@angular/common/http';
@@ -14,6 +15,7 @@ export class ActualDSService {
 private _actUser: User = null;
 private _actCompany: Company = null;
 private _companies: Company[] = null;
+private _companyStorageAgreements: StorageAgreement[] = null;
 
 private _web3wrap: Web3WrapperService = null;
 
@@ -59,6 +61,7 @@ public constructor( private _http: HttpClient) {
 
   this._products = [];
   this._companies = [];
+  this._companyStorageAgreements = [];
   this.loadProducts().subscribe( products => { products.forEach(p => { this.addProduct( Product.assign(p)); }); });
 
 }
@@ -66,6 +69,11 @@ public constructor( private _http: HttpClient) {
 
 private addProduct(p: Product) {
   this._products.push(p);
+}
+
+private addCompanyStorageAgreements(company_id: number, sa: StorageAgreement) {
+  console.log ( 'company_id:' + company_id + ' storageAgreement:'  + sa.toString());
+  this._companyStorageAgreements.push(sa);
 }
 
 private addCompany(p: Company) {
@@ -142,6 +150,16 @@ async getServerCompanyByID(id: number): Promise<Company> {
     this.companyAdd2cache(co);
   }
   return co;
+}
+
+// async handling with Promises / .then
+async getCompanyStorageAgreements(company_id: number): Promise<StorageAgreement[]> {
+  this._companyStorageAgreements = [];
+  const response = await this._http.get<StorageAgreement[]>(environment.apiBasePath + '/companies/' + company_id + '/storage_agreements')
+                    .toPromise<StorageAgreement[]>();
+  response.forEach(c => { const sa = StorageAgreement.assign(c); this.addCompanyStorageAgreements(company_id, sa); });
+
+  return this._companyStorageAgreements;
 }
 
 public getAllCompanies(): Company[] {
