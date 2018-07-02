@@ -101,10 +101,15 @@ private  processResponse(login: LoginComponent, headers: HttpHeaders, ret: boole
       this.router.navigate(['admin', 'dashboard']);
       const cid = this._actDSService.getUser().company_id;
       this._actDSService.getServerCompanyByID(cid)
-          .then(c => {this._actDSService.setCompany(c); } )
+          .then(c => {
+              this._actDSService.setCompany(c);
+              this._actDSService.getCompanyStorageAgreements(c);
+
+          } )
           .then(undefined, (error) => { console.log('cant load company with id:' + cid + ' error:' + error); });
 
-      this._actDSService.getCompanyStorageAgreements(cid);
+
+
 
       // TEST preload companies ?!?
       // this._actDSService.getAllCompanies();

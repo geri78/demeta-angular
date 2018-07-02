@@ -75,8 +75,12 @@ public constructor (
   public reduction: number,
   public expires_on: Date,
   public signed_on: Date,
-  public signer: User
-
+  public signer: User,
+  public creator: User,
+  public created_at: Date,
+  public updated_at?: Date,
+  public creation_transaction_id?: string,
+  public signing_transaction_id?: string
 ) { }
 
 public static assign (o: any): StorageAgreement {
@@ -91,8 +95,20 @@ public static assign (o: any): StorageAgreement {
     o.signer.nickname,
     o.signer.provider,
     o.signer.image);
-  const sa = new StorageAgreement(o.id, o.principal_id, o.counterparty_id, com, o.storage_charge, o.price_unit,
-              o.weight_unit, o.loading_charge, o.unloading_charge,   o.reduction, o.expires_on, o.signed_on, signer );
+    const creator = new User( o.creator.id,
+      o.creator.uid,
+      o.creator.company_id,
+      o.creator.email,
+      o.creator.name,
+      o.creator.allow_password_change,
+      o.creator.nickname,
+      o.creator.provider,
+      o.creator.image);
+
+    const sa = new StorageAgreement(o.id, o.principal_id, o.counterparty_id, com, o.storage_charge, o.price_unit,
+              o.weight_unit, o.loading_charge, o.unloading_charge,   o.reduction, o.expires_on, o.signed_on, signer,
+            creator, new Date(Date.parse(o.created_at)), new Date(Date.parse(o.updated_at)), o.creation_transaction_id,
+            o.signing_transaction_id );
   return sa;
 }
 
