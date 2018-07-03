@@ -104,6 +104,8 @@ private  processResponse(login: LoginComponent, headers: HttpHeaders, ret: boole
           .then(c => {
               this._actDSService.setCompany(c);
               this._actDSService.getCompanyStorageAgreements(c);
+              // test:
+              // this._actDSService.getCompanyDeliveries(c);
 
           } )
           .then(undefined, (error) => { console.log('cant load company with id:' + cid + ' error:' + error); });

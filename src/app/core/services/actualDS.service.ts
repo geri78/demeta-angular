@@ -1,3 +1,4 @@
+import { Delivery } from './../dataObjects/delivery';
 import { StorageAgreement } from './../dataObjects/storageagreement';
 import { environment } from './../../../environments/environment.prod';
 // import { Configuration } from '../../configuration';
@@ -77,6 +78,15 @@ private addCompanyStorageAgreements(company: Company, sa: StorageAgreement) {
   }
   company.storageAgreements.push(sa);
 }
+
+private addCompanyDeliveries(company: Company, de: Delivery) {
+  console.log ( 'company_id:' + company.id + ' add delivery:'  + de.toString());
+  if ( company.deliveries == null) {
+    company.deliveries = [];
+  }
+  company.deliveries.push(de);
+}
+
 
 private addCompany(p: Company) {
   console.log ( 'company:' + p.toString());
@@ -159,8 +169,20 @@ async getCompanyStorageAgreements(company: Company) {
   // const companyStorageAgreements: StorageAgreement[] = [];
   const response = await this._http.get<StorageAgreement[]>(environment.apiBasePath + '/companies/' + company.id + '/storage_agreements')
                     .toPromise<StorageAgreement[]>();
-  response.forEach(c => { const sa = StorageAgreement.assign(c); this.addCompanyStorageAgreements(company, sa); });
+  response.forEach(c => {
+        const sa = StorageAgreement.assign(c);
+        this.addCompanyStorageAgreements(company, sa); });
 }
+
+// async handling with Promises / .then
+async getCompanyDeliveries(company: Company) {
+  const response = await this._http.get<Delivery[]>(environment.apiBasePath + '/companies/' + company.id + '/deliveries')
+                    .toPromise<Delivery[]>();
+  response.forEach(c => {
+                          const sa = Delivery.assign(c);
+                          this.addCompanyDeliveries(company, sa); });
+}
+
 
 public getAllCompanies(): Company[] {
   if ( this._companies == null) {

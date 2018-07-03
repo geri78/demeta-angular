@@ -66,7 +66,7 @@ public constructor (
   public id: number,
   public principal_id: number,
   public counterparty_id: number,
-  public commodity: Commodity,
+  public commodity_id: number,
   public storage_charge: number,
   public price_unit: string,
   public weight_unit: string,
@@ -75,8 +75,8 @@ public constructor (
   public reduction: number,
   public expires_on: Date,
   public signed_on: Date,
-  public signer: User,
-  public creator: User,
+  public signer_id: number,
+  public creator_id: number,
   public created_at: Date,
   public updated_at?: Date,
   public creation_transaction_id?: string,
@@ -84,7 +84,7 @@ public constructor (
 ) { }
 
 public static assign (o: any): StorageAgreement {
-  const com = new Commodity(o.commodity.id, o.commodity.name, o.commodity.created_at, o.commodity.updated_at, o.commodity.unique,
+/*  const com = new Commodity(o.commodity.id, o.commodity.name, o.commodity.created_at, o.commodity.updated_at, o.commodity.unique,
                             o.commodity.description);
   const signer = new User( o.signer.id,
     o.signer.uid,
@@ -104,20 +104,20 @@ public static assign (o: any): StorageAgreement {
       o.creator.nickname,
       o.creator.provider,
       o.creator.image);
-
-    const sa = new StorageAgreement(o.id, o.principal_id, o.counterparty_id, com, o.storage_charge, o.price_unit,
-              o.weight_unit, o.loading_charge, o.unloading_charge,   o.reduction, o.expires_on, o.signed_on, signer,
-            creator, new Date(Date.parse(o.created_at)), new Date(Date.parse(o.updated_at)), o.creation_transaction_id,
+*/
+    const sa = new StorageAgreement(o.id, o.principal_id, o.counterparty_id, o.commodity_id, o.storage_charge, o.price_unit,
+              o.weight_unit, o.loading_charge, o.unloading_charge,   o.reduction, o.expires_on, o.signed_on, o.signer_id,
+            o.creator_id, new Date(Date.parse(o.created_at)), new Date(Date.parse(o.updated_at)), o.creation_transaction_id,
             o.signing_transaction_id );
   return sa;
 }
-
+// TODO: additional fields....
 public toString() {
   return '{ ' +
   ' id:' + this.id +
   ' principal_id:' + this.principal_id +
   ' counterparty_id:' + this.counterparty_id +
-  ' commodity:' + this.commodity.toString() +
+  ' commodity_id:' + this.commodity_id +
   ' }';
 }
 }

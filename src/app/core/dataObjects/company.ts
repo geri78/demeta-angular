@@ -1,3 +1,4 @@
+import { Delivery } from './delivery';
 import { StorageAgreement } from './storageagreement';
 
 export class Company {
@@ -25,7 +26,8 @@ export class Company {
     public creator_id?: number,
     public creation_transaction_id?: string,
     public updated_at?: Date,
-    public storageAgreements?: StorageAgreement[]
+    public storageAgreements?: StorageAgreement[],
+    public deliveries?: Delivery[]
     ) { }
 
     public static assign(o: any): Company {
@@ -61,6 +63,10 @@ export class Company {
       this.storageAgreements = sas;
     }
 
+    public setDeliveries(dels: Delivery[]) {
+      this.deliveries = dels;
+    }
+
     public toString(): string {
       return  'company( id:' + this.id +
       ' creator_id:' + this.creator_id +
@@ -86,6 +92,8 @@ export class Company {
       ' approval_at:' + this.approval_at +
       ' creation_transaction_id:' + this.creation_transaction_id +
       ' storageAgreements:' + ((this.storageAgreements == null) ? '<null>' : this.storageAgreements.toString()) +
+      ' deliveries:' + ((this.deliveries == null) ? '<null>' : this.deliveries.toString()) +
+
       ' ) ';
     }
 
