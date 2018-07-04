@@ -9,7 +9,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HistoryViewComponent implements OnInit {
 
-  public displayedColumns = ['seqNo', 'description', 'duration'];
+  public displayedColumns = ['id', 'created_at', 'net_weight'];
   public dataSource: DeliveryDataSource;
 
 
@@ -23,7 +23,7 @@ export class HistoryViewComponent implements OnInit {
   ngOnInit() {
     this.dataSource = new DeliveryDataSource(this.deliveryService);
 
-    this.dataSource.loadLessons(1);
+    this.dataSource.loadDeliveries(1);
   }
 
 }

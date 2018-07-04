@@ -16,19 +16,10 @@ export class DeliveryService {
 
 
 
-    findDeliveries(
-        deliveryId: number, filter = '', sortOrder = 'asc',
+    findDeliveries():  Observable<Delivery[]> {
 
-        pageNumber = 0, pageSize = 3):  Observable<Delivery[]> {
-
-          const d: Delivery[] = [];
-/*          [{'seqNo': 1, 'description' : 'delivery 1', 'duration': 100 },
-          {'seqNo': 2, 'description' : 'delivery 2', 'duration': 200 },
-          {'seqNo': 3, 'description' : 'delivery 3', 'duration': 300 }] ;
-          d.forEach(de => { const p: Product = this._actDS.getProduct(de.seqNo);
-                            de.description = ( p != null) ? p.name : '';
-                          } );
-*/          return Observable.of(d);
+          const d: Delivery[] = this._actDS.getDeliveries();
+          return Observable.of(d);
 
         }
 /*

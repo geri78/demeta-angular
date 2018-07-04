@@ -84,7 +84,7 @@ public constructor (
 ) { }
 
 public static assign (o: any): StorageAgreement {
-/*  const com = new Commodity(o.commodity.id, o.commodity.name, o.commodity.created_at, o.commodity.updated_at, o.commodity.unique,
+/*  const com = new Commodity (o.commodity.id, o.commodity.name, o.commodity.created_at, o.commodity.updated_at, o.commodity.unique,
                             o.commodity.description);
   const signer = new User( o.signer.id,
     o.signer.uid,
@@ -118,6 +118,20 @@ public toString() {
   ' principal_id:' + this.principal_id +
   ' counterparty_id:' + this.counterparty_id +
   ' commodity_id:' + this.commodity_id +
+  ' storage_charge:' + this.storage_charge +
+  ' price_unit:' + this.price_unit +
+  ' weight_unit:' + this.weight_unit +
+  ' loading_charge:'  + this.loading_charge +
+  ' unloading_charge:' + this.unloading_charge +
+  ' reduction:' + this.reduction +
+  ' expires_on:' + this.expires_on +
+  ' signed_on:' + this.signed_on +
+  ' signer_id:' + this.signer_id +
+  ' creator_id:' + this.created_at +
+  ' created_at:' + this.created_at +
+  ' updated_at:' + this.updated_at +
+  ' creation_transaction_id:' + this.creation_transaction_id +
+  ' signing_transaction_id:' + this.signing_transaction_id +
   ' }';
 }
 }

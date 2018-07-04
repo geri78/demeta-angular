@@ -25,18 +25,18 @@
 -->
 
   <mat-table class="delivery-table2 mat-elevation-z8" [dataSource]="dataSource"
-    matSort matSortActive="seqNo" matSortDirection="asc" matSortDisableClear>
-  <ng-container matColumnDef="seqNo">
-      <mat-header-cell *matHeaderCellDef>#</mat-header-cell>
-      <mat-cell *matCellDef="let delivery">{{delivery.seqNo}}</mat-cell>
+    matSort matSortActive="id" matSortDirection="asc" matSortDisableClear>
+  <ng-container matColumnDef="id">
+      <mat-header-cell *matHeaderCellDef>id</mat-header-cell>
+      <mat-cell *matCellDef="let delivery">{{delivery.id}}</mat-cell>
   </ng-container>
-  <ng-container matColumnDef="description">
-      <mat-header-cell *matHeaderCellDef>Description</mat-header-cell>
-      <mat-cell *matCellDef="let delivery" class="description-cell">{{delivery.description}}</mat-cell>
+  <ng-container matColumnDef="created_at">
+      <mat-header-cell *matHeaderCellDef>created_at</mat-header-cell>
+      <mat-cell *matCellDef="let delivery" class="description-cell">{{delivery.created_at | date: 'dd.MM.yyyy HH:mm'}}</mat-cell>
   </ng-container>
-  <ng-container matColumnDef="duration">
-      <mat-header-cell *matHeaderCellDef>Duration</mat-header-cell>
-      <mat-cell *matCellDef="let delivery" class="duration-cell">{{delivery.duration}}</mat-cell>
+  <ng-container matColumnDef="net_weight">
+      <mat-header-cell *matHeaderCellDef>net_weight</mat-header-cell>
+      <mat-cell *matCellDef="let delivery" class="duration-cell">{{delivery.net_weight}}</mat-cell>
   </ng-container>
   <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
   <mat-row *matRowDef="let row; columns: displayedColumns"

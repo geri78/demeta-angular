@@ -15,13 +15,15 @@ export class ActualDSService {
 
 private _actUser: User = null;
 private _actCompany: Company = null;
+// cache arrays:
 private _companies: Company[] = null;
+private _users: User[] = null;
+private _products: Product[];
 
 private _web3wrap: Web3WrapperService = null;
 
 
 
- private _products: Product[];
 // ----------------------------------------------------------
 //   public user functions
 //
@@ -47,11 +49,16 @@ public getCompany(): Company {
   return this._actCompany;
 }
 
-
 public getWeb3Wrapper() {
   return this._web3wrap;
 }
 
+public getDeliveries(): Delivery[] {
+  if (this._actCompany != null) {
+     return this._actCompany.deliveries;
+  }
+  return null;
+}
 
 // ----------------------------------------------------------
 //   non public functions to fill the ActualDSService
@@ -61,7 +68,7 @@ public constructor( private _http: HttpClient) {
 
   this._products = [];
   this._companies = [];
-
+  this._users = [];
   this.loadProducts().subscribe( products => { products.forEach(p => { this.addProduct( Product.assign(p)); }); });
 
 }
@@ -71,6 +78,12 @@ private addProduct(p: Product) {
   this._products.push(p);
 }
 
+/*
+private addCompany(p: Company) {
+  console.log ( 'company:' + p.toString());
+  this._companies.push(p);
+}
+*/
 private addCompanyStorageAgreements(company: Company, sa: StorageAgreement) {
   console.log ( 'company_id:' + company.id + ' add storageAgreement:'  + sa.toString());
   if ( company.storageAgreements == null) {
@@ -87,11 +100,6 @@ private addCompanyDeliveries(company: Company, de: Delivery) {
   company.deliveries.push(de);
 }
 
-
-private addCompany(p: Company) {
-  console.log ( 'company:' + p.toString());
-  this._companies.push(p);
-}
 
 private loadProducts(): any {
   return this._http.get( environment.apiBasePath + '/products') ;
@@ -110,12 +118,34 @@ private companyFindInChache(id: number): Company {
   return null; // not found
 }
 
-companyAdd2cache(co: Company) {
+private userFindInChache(id: number): User {
+  if (this._users != null) {
+    let i: number;
+    for ( i = 0; i <  this._users.length; i++) {
+      if (this._users[i].id === id) {
+        console.log('user cache hit id:' + id);
+        return this._users[i];
+      }
+    }
+  }
+  return null; // not found
+}
+
+
+private addCompany(co: Company) {
   if ( this.companyFindInChache(co.id) == null) {
     this._companies.push( co);
   }
 }
 
+private addUser(us: User) {
+  if ( this.userFindInChache(us.id) == null) {
+    this._users.push( us);
+  }
+}
+
+
+// actual record
 public setUser(u: User) {
   this._actUser = u;
 }
@@ -139,10 +169,11 @@ public getProduct(id: number): Product {
 public getAllProducts(): Product[] {
   return this._products;
 }
-
+/*
 public loadAllCompanies(): any {
   return this._http.get( environment.apiBasePath + '/companies') ;
 }
+*/
 
 // async handling with Promises / .then
 async getServerAllCompanies(): Promise<Company[]> {
@@ -159,10 +190,22 @@ async getServerCompanyByID(id: number): Promise<Company> {
   if ( co == null) {
     const response = await this._http.get(environment.apiBasePath + '/companies/' + id).toPromise();
     co = Company.assign(response);
-    this.companyAdd2cache(co);
+    this.addCompany(co);
   }
   return co;
 }
+
+// async handling with Promises / .then
+async getUserByID(id: number): Promise<User> {
+  let us = this.userFindInChache( id );
+  if ( us == null) {
+    const response = await this._http.get(environment.apiBasePath + '/users/' + id).toPromise();
+    us = User.assign(response);
+    this.addUser(us);
+  }
+  return us;
+}
+
 
 // async handling with Promises / .then
 async getCompanyStorageAgreements(company: Company) {
@@ -183,7 +226,7 @@ async getCompanyDeliveries(company: Company) {
                           this.addCompanyDeliveries(company, sa); });
 }
 
-
+/*
 public getAllCompanies(): Company[] {
   if ( this._companies == null) {
     this._companies = [];
@@ -192,5 +235,5 @@ public getAllCompanies(): Company[] {
   }
   return this._companies;
 }
-
+*/
 }

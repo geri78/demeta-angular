@@ -21,12 +21,11 @@ export class DeliveryDataSource implements DataSource<Delivery> {
       this.loadingSubject.complete();
   }
 
-  loadLessons(courseId: number, filter = '',
+  loadDeliveries(courseId: number, filter = '',
               sortDirection = 'asc', pageIndex = 0, pageSize = 3) {
 
       this.loadingSubject.next(true);
-      this.deliveryService.findDeliveries(courseId, filter, sortDirection,
-                pageIndex, pageSize)
+      this.deliveryService.findDeliveries()
       .subscribe(deliveries => this.deliverySubject.next(deliveries));
   }
 }
