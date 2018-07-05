@@ -2,7 +2,7 @@ import { Delivery } from './../dataObjects/delivery';
 import { StorageAgreement } from './../dataObjects/storageagreement';
 import { environment } from './../../../environments/environment.prod';
 // import { Configuration } from '../../configuration';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Product } from './../dataObjects/product';
 import { Company } from './../dataObjects/company';
 import { User } from '../dataObjects/user';
@@ -236,4 +236,42 @@ public getAllCompanies(): Company[] {
   return this._companies;
 }
 */
+
+// create + upd
+
+
+              /* debug create company...
+              c.id = 0;
+              c.name = 'testcomp2';
+              c.creator_id = 1;
+              this._actDSService.createCompany(c)
+              .then((val: number) => { console.log(' creation ok'); });
+               .then(undefined, (error) => { console.log(error); });
+              */
+
+public async createCompany(c: Company): Promise<number> {
+    const body = JSON.stringify(c);
+    const h: HttpHeaders = new HttpHeaders()
+    .set('Accept', 'application/json')
+    .set('content-type', 'application/json');
+
+    const response = await this._http.post<Company>(environment.apiBasePath + '/companies', body, {headers: h } )
+                            .toPromise<Company>()
+                            .catch((error) => { console.log(error); });
+      console.log(' createCompany server return:' + response);
+      const p = new Promise<number>((resolve, reject) => {
+          // if()
+      /*    if (response != null && response.id != null ) {
+            c.id = response.id;
+            // todo: add to cache...
+            resolve(response.id);
+        } else {
+          reject(-1);
+        }
+      */
+      });
+    return p;
+}
+
+
 }
