@@ -104,7 +104,8 @@ private  processResponse(login: LoginComponent, headers: HttpHeaders, ret: boole
           .then(c => {
               this._actDSService.setCompany(c);
               this._actDSService.getCompanyStorageAgreements(c);
-              // TODO: if farmer: load deliveries
+              // TODO: only if farmer: load deliveries
+
               this._actDSService.getCompanyDeliveries(c);
 
           } )

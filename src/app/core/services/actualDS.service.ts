@@ -241,12 +241,12 @@ public getAllCompanies(): Company[] {
 
 
               /* debug create company...
-              c.id = 0;
-              c.name = 'testcomp2';
-              c.creator_id = 1;
+             c.id = 0;
+              c.name = 'testcomp3';
+              c.creator_id = this._actDSService.getUser().id;
               this._actDSService.createCompany(c)
-              .then((val: number) => { console.log(' creation ok'); });
-               .then(undefined, (error) => { console.log(error); });
+              .then((val: number) => { console.log(' creation ok'); })
+              .then(undefined, (error) => { console.log('creation failed with error:' + error); });
               */
 
 public async createCompany(c: Company): Promise<number> {
@@ -255,23 +255,53 @@ public async createCompany(c: Company): Promise<number> {
     .set('Accept', 'application/json')
     .set('content-type', 'application/json');
 
-    const response = await this._http.post<Company>(environment.apiBasePath + '/companies', body, {headers: h } )
+    const response: any = await this._http.post<Company>(environment.apiBasePath + '/companies', body, {headers: h } )
                             .toPromise<Company>()
                             .catch((error) => { console.log(error); });
       console.log(' createCompany server return:' + response);
       const p = new Promise<number>((resolve, reject) => {
-          // if()
-      /*    if (response != null && response.id != null ) {
+      if (response != null && response.id != null ) {
             c.id = response.id;
-            // todo: add to cache...
+            const nc: Company = Company.assign(response);
+            this.addCompany(nc);
             resolve(response.id);
         } else {
           reject(-1);
         }
-      */
       });
     return p;
 }
 
+
+/*
+  c.name += '_upd';
+  c.creator_id = this._actDSService.getUser().id;
+  this._actDSService.updCompany(c)
+  .then((val: number) => { console.log(' upd ok'); })
+  .then(undefined, (error) => { console.log('upd failed with error:' + error); });
+*/
+public async updCompany(c: Company): Promise<number> {
+  const body = JSON.stringify(c);
+  const h: HttpHeaders = new HttpHeaders()
+  .set('Accept', 'application/json')
+  .set('content-type', 'application/json');
+
+  const response: any = await this._http.patch<Company>(environment.apiBasePath + '/companies/' + c.id, body, {headers: h } )
+                          .toPromise<Company>()
+                          .catch((error) => { console.log(error); });
+    console.log(' updCompany server return:' + response);
+    const p = new Promise<number>((resolve, reject) => {
+    if (response != null && response.id != null ) {
+          if (c.id !== response.id) {
+              reject(-2);
+          }
+          // todo: add to cache...
+          resolve(response.id);
+      } else {
+        reject(-1);
+      }
+    });
+  return p;
+}
 
 }
