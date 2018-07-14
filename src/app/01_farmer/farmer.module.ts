@@ -6,8 +6,9 @@ import { FarmerRoutingModule } from './farmer-routing.module';
 import { FarmerComponent } from './farmer.component';
 import { FDashboardComponent } from './dashboard/fdashboard.component';
 import { MatInputModule, MatPaginatorModule, MatProgressSpinnerModule, MatSortModule, MatTableModule } from '@angular/material';
-import { MaterialModule } from './../material/material.module';
+import { MaterialModule } from '../material/material.module';
 import { PackageComponent } from './package/package.component';
+import { FAdminComponent } from './admin/admin.component';
 
 @NgModule({
   imports: [
@@ -20,6 +21,6 @@ import { PackageComponent } from './package/package.component';
     MatSortModule,
     MatProgressSpinnerModule
   ],
-  declarations: [FarmerComponent, FDashboardComponent, HistoryViewComponent, PackageComponent]
+  declarations: [FarmerComponent, FDashboardComponent, HistoryViewComponent, PackageComponent, FAdminComponent]
 })
 export class FarmerModule { }

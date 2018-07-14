@@ -24,14 +24,14 @@ export class HeaderComponent implements OnInit {
 
   showHeader(visible: boolean) {
     this.showHeader_bol = visible;
-    //header showed, than also footer gets showed
+    /* header showed, than also footer gets showed*/
     if (visible = true) {
       this.setFooterContent();
     }
   }
 
   setFooterContent() {
-    this.footer_text = 'Welcome Gerald Bader and Company : ' + this._actDSService.getCompany().name;
+    this.footer_text = 'Welcome Gerald Bader and Company : ' + this._actDSService.getUser().email;        /* .getCompany().name;*/
   }
 
   logout() {

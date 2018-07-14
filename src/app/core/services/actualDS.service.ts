@@ -1,10 +1,10 @@
-import { Delivery } from './../dataObjects/delivery';
-import { StorageAgreement } from './../dataObjects/storageagreement';
-import { environment } from './../../../environments/environment.prod';
+import { Delivery } from '../dataObjects/delivery';
+import { StorageAgreement } from '../dataObjects/storageagreement';
+import { environment } from '../../../environments/environment.prod';
 // import { Configuration } from '../../configuration';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Product } from './../dataObjects/product';
-import { Company } from './../dataObjects/company';
+import { Product } from '../dataObjects/product';
+import { Company } from '../dataObjects/company';
 import { User } from '../dataObjects/user';
 import { Web3WrapperService  } from './web3wrapper.service';
 import { Injectable, Inject, InjectionToken } from '@angular/core';

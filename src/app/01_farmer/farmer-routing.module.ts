@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { FarmerComponent } from './farmer.component';
 import { FDashboardComponent } from './dashboard/fdashboard.component';
+import { FAdminComponent } from './admin/admin.component';
 import { PackageComponent } from './package/package.component';
 
 const routes: Routes = [
@@ -30,6 +31,13 @@ const routes: Routes = [
     component: FarmerComponent,
     children: [
       { path: '', component: PackageComponent}
+    ]
+  },
+  {
+    path: 'fadmin',
+    component: FarmerComponent,
+    children: [
+      { path: '', component: FAdminComponent}
     ]
   }
 ];

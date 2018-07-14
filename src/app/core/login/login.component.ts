@@ -1,4 +1,4 @@
-import { Web3WrapperService } from './../services/web3wrapper.service';
+import { Web3WrapperService } from '../services/web3wrapper.service';
 import { Component, OnInit, HostListener, NgZone, ViewChild  } from '@angular/core';
 import { AuthenticationService } from '../services/authentication.service';
 import { Router } from '@angular/router';

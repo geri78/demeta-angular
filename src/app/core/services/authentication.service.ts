@@ -1,5 +1,5 @@
 // import { Configuration } from './../../configuration';
-import { Company } from './../dataObjects/company';
+import { Company } from '../dataObjects/company';
 import { ActualDSService } from './actualDS.service';
 import { Web3WrapperService } from './web3wrapper.service';
 import { Observable } from 'rxjs';

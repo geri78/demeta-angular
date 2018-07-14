@@ -1,4 +1,4 @@
-import { DeliveryService } from './../../core/services/deliveryService';
+import { DeliveryService } from '../../core/services/deliveryService';
 import { DeliveryDataSource } from './deliveryDataSource';
 import { Component, OnInit } from '@angular/core';
 

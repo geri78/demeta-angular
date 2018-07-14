@@ -1,7 +1,7 @@
-import { Product } from './../dataObjects/product';
+import { Product } from '../dataObjects/product';
 import { ActualDSService } from './actualDS.service';
 import { Observable } from 'rxjs';
-import { Delivery } from './../dataObjects/delivery';
+import { Delivery } from '../dataObjects/delivery';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import 'rxjs/add/observable/of';

@@ -1,4 +1,4 @@
-import { environment } from './../../environments/environment.prod';
+import { environment } from '../../environments/environment.prod';
 import { ActualDSService } from './services/actualDS.service';
 import { DeliveryService } from './services/deliveryService';
 import { NgModule, InjectionToken } from '@angular/core';

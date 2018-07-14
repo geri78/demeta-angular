@@ -1,5 +1,5 @@
-import { DeliveryService } from './../../core/services/deliveryService';
-import { Delivery } from './../../core/dataObjects/delivery';
+import { DeliveryService } from '../../core/services/deliveryService';
+import { Delivery } from '../../core/dataObjects/delivery';
 import { DataSource } from '@angular/cdk/table';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { CollectionViewer } from '@angular/cdk/collections';
