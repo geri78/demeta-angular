@@ -31,7 +31,11 @@ export class HeaderComponent implements OnInit {
   }
 
   setFooterContent() {
-    this.footer_text = 'Welcome Gerald Bader and Company : ' + this._actDSService.getUser().email;        /* .getCompany().name;*/
+    if (this._actDSService.getCompany().name === null) {
+      this.footer_text = 'Welcome Gerald Bader and Company : ' + this._actDSService.getUser().email;        /* .getCompany().name;*/
+    } else {
+      this.footer_text = 'Welcome Gerald Bader and Company : ' + this._actDSService.getCompany().name;
+    }
   }
 
   logout() {
